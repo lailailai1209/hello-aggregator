@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.yangtools:yang-data-codec-gson:1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-data-codec-gson/1.0.0-SNAPSHOT/yang-data-codec-gson-1.0.0-20160608.104959-161.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-data-codec-gson/1.0.0-SNAPSHOT/yang-data-codec-gson-1.0.0-20160608.104959-161-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-data-codec-gson/1.0.0-SNAPSHOT/yang-data-codec-gson-1.0.0-20160608.104959-161-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

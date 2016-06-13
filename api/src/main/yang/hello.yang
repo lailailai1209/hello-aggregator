@@ -1,0 +1,60 @@
+module hello {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:hello";
+    prefix "hello";
+
+    revision "2015-01-05" {
+        description "Initial revision of hello model";
+    }
+
+
+
+     rpc congfig-dns-setting{
+                  input{
+                       leaf dns-server-ip{
+                          type string;
+                       }
+                       leaf zone{
+                          type string;
+                       }
+
+                       list dns-record{
+                            key domain-name;
+                            leaf domain-name{
+                              type string;
+                            }
+                            leaf dns-ip{
+                              type string;
+                            }
+                            leaf operation{
+                              type string;
+                            }
+
+                       }
+
+                  }
+
+                  output {
+                          leaf result{
+                             type string;
+                          }
+                  }
+           }
+
+           rpc enable-dynamic-DNS-adjustment{
+
+                    input{
+
+                    }
+                    output{
+                     leaf result{
+                                   type string;
+                                   }
+                    }
+           }
+
+
+
+
+
+}

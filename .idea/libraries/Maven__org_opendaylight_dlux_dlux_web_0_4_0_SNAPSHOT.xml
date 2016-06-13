@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.dlux:dlux-web:0.4.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux-web/0.4.0-SNAPSHOT/dlux-web-0.4.0-20160605.072751-37.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux-web/0.4.0-SNAPSHOT/dlux-web-0.4.0-20160605.072751-37-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux-web/0.4.0-SNAPSHOT/dlux-web-0.4.0-20160605.072751-37-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

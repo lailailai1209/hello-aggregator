@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.yangtools:xsd-regex:1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/xsd-regex/1.0.0-SNAPSHOT/xsd-regex-1.0.0-20160608.104920-9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/xsd-regex/1.0.0-SNAPSHOT/xsd-regex-1.0.0-20160608.104920-9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/xsd-regex/1.0.0-SNAPSHOT/xsd-regex-1.0.0-20160608.104920-9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

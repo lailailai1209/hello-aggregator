@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.aaa:aaa-authn-basic:0.4.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-basic/0.4.0-SNAPSHOT/aaa-authn-basic-0.4.0-20160605.092941-87.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-basic/0.4.0-SNAPSHOT/aaa-authn-basic-0.4.0-20160605.092941-87-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-basic/0.4.0-SNAPSHOT/aaa-authn-basic-0.4.0-20160605.092941-87-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.controller:sal-connector-api:1.4.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-connector-api/1.4.0-SNAPSHOT/sal-connector-api-1.4.0-20160608.093745-261.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-connector-api/1.4.0-SNAPSHOT/sal-connector-api-1.4.0-20160608.093745-261-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-connector-api/1.4.0-SNAPSHOT/sal-connector-api-1.4.0-20160608.093745-261-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

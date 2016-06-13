@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.aaa:aaa-idmlight:0.4.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-idmlight/0.4.0-SNAPSHOT/aaa-idmlight-0.4.0-20160605.093019-86.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-idmlight/0.4.0-SNAPSHOT/aaa-idmlight-0.4.0-20160605.093019-86-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-idmlight/0.4.0-SNAPSHOT/aaa-idmlight-0.4.0-20160605.093019-86-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

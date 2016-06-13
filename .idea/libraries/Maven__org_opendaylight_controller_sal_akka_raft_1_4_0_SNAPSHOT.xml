@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.controller:sal-akka-raft:1.4.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-akka-raft/1.4.0-SNAPSHOT/sal-akka-raft-1.4.0-20160608.093430-265.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-akka-raft/1.4.0-SNAPSHOT/sal-akka-raft-1.4.0-20160608.093430-265-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-akka-raft/1.4.0-SNAPSHOT/sal-akka-raft-1.4.0-20160608.093430-265-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

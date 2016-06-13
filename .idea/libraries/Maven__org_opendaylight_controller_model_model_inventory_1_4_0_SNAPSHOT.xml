@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.controller.model:model-inventory:1.4.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/model/model-inventory/1.4.0-SNAPSHOT/model-inventory-1.4.0-20160608.094232-258.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/model/model-inventory/1.4.0-SNAPSHOT/model-inventory-1.4.0-20160608.094232-258-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/model/model-inventory/1.4.0-SNAPSHOT/model-inventory-1.4.0-20160608.094232-258-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

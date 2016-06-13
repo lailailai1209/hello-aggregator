@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.controller:config-manager-facade-xml:0.5.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-manager-facade-xml/0.5.0-SNAPSHOT/config-manager-facade-xml-0.5.0-20160608.085103-276.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-manager-facade-xml/0.5.0-SNAPSHOT/config-manager-facade-xml-0.5.0-20160608.085103-276-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-manager-facade-xml/0.5.0-SNAPSHOT/config-manager-facade-xml-0.5.0-20160608.085103-276-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

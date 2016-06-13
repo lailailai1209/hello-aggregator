@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.opendaylight.dlux:dlux.common.authentication.resources:0.3.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication.resources/0.3.0-SNAPSHOT/dlux.common.authentication.resources-0.3.0-20160605.072753-37.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication.resources/0.3.0-SNAPSHOT/dlux.common.authentication.resources-0.3.0-20160605.072753-37-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication.resources/0.3.0-SNAPSHOT/dlux.common.authentication.resources-0.3.0-20160605.072753-37-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
