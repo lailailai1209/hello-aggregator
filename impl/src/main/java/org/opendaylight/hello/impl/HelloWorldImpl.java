@@ -60,16 +60,16 @@ public class HelloWorldImpl implements HelloService {
         String debug = "debug yes";
         String zone = "zone "+input.getZone();
         try {
-        File file = new File("/home/lailailai/ns3.txt");
-        PrintWriter output = new PrintWriter(file);
-        output.println(server);
-        output.println(debug);
-        output.println(zone);
+            File file = new File("/home/cisco/projects/ns-tool/ns3.txt");
+            PrintWriter output = new PrintWriter(file);
+            output.println(server);
+            output.println(debug);
+            output.println(zone);
 
-        for (int i=0;i<input.getDnsRecord().size();i++){
-            String update = "update "+input.getDnsRecord().get(i).getOperation()+" "+input.getDnsRecord().get(i) .getDomainName()+" 86400 "+" A "+input.getDnsRecord().get(i).getDnsIp();
-            output.println(update);
-        }
+            for (int i=0;i<input.getDnsRecord().size();i++){
+                String update = "update "+input.getDnsRecord().get(i).getOperation()+" "+input.getDnsRecord().get(i) .getDomainName()+" 86400 "+" A "+input.getDnsRecord().get(i).getDnsIp();
+                output.println(update);
+            }
             output.println("show");
             output.println("send");
             output.close();
@@ -80,8 +80,8 @@ public class HelloWorldImpl implements HelloService {
 
         Runtime r = Runtime.getRuntime();
         try {
-
-            r.exec("nsupdate -v ns3.txt",null,new File("/home/lailailai/"));
+            // r.exec("nsupdate -v ns3.txt",null,new File("/home/cisco/projects/ns-tool/"));
+            r.exec("nsupdate -v ns3.txt",null,new File("/home/cisco/projects/ns-tool"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,7 +151,7 @@ public class HelloWorldImpl implements HelloService {
 
 
         System.out.println(finalResult);
-
+        /*
         Iterator<String> iterator = finalResult.values().iterator();
 
         String server = "server 10.123.43.5";
@@ -166,7 +166,7 @@ public class HelloWorldImpl implements HelloService {
          output.println(zone);
 
 
-         while (iterator.hasNext()) {
+        while (iterator.hasNext()) {
              String ip = iterator.next();
              System.out.println(ip);
              String update = "update add zone webex1.com.cm  86400 A " + ip;
@@ -179,11 +179,51 @@ public class HelloWorldImpl implements HelloService {
      }catch (Exception e){
          e.printStackTrace();
      }
+     */
+        Iterator<String> iterator = finalResult.values().iterator();
+        String server = "server 10.123.43.5";
+        String debug = "debug yes";
+        String zone = "zone webex1.com.cm";
+
+        try {
+
+            File file = new File("/home/cisco/projects/ns-tool/ns4.txt");
+            PrintWriter output = new PrintWriter(file);
+            output.println(server);
+            output.println(debug);
+            output.println(zone);
+
+
+            String ip = iterator.next();
+
+                System.out.println(ip);
+                String update = "update add zone webex1.com.cm  86400 A " + ip;
+                System.out.println(update);
+                output.println(update);
+
+
+
+            output.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+
+
 
 
      // execute shell script
 
 
+        Runtime r = Runtime.getRuntime();
+        try {
+            // r.exec("nsupdate -v ns3.txt",null,new File("/home/cisco/projects/ns-tool/"));
+            r.exec("nsupdate -v ns4.txt",null,new File("/home/cisco/projects/ns-tool"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
 
