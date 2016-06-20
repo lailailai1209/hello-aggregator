@@ -4,6 +4,9 @@ package org.opendaylight.hello.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -30,12 +33,12 @@ public class WanLinkUsageManager {
         return INSTANCE;
     }
 
-    public Integer execute(String ipAddr) {
+    public Integer execute(String ipAddr,String wanInterface) {
 
 
         Integer usage = null;
         try {
-            usage = (Integer) INSTANCE.threadpool.submit(new WorkerThread(ipAddr)).get();
+            usage = (Integer) INSTANCE.threadpool.submit(new WorkerThread(ipAddr,wanInterface)).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -48,23 +51,35 @@ public class WanLinkUsageManager {
     class WorkerThread implements Callable {
 
         private final String ipaddr;
+        private final String wanInterface;
 
 
-        public WorkerThread(String ipaddr) {
+        public WorkerThread(String ipaddr,String wanInterface) {
 
             this.ipaddr = ipaddr;
+            this.wanInterface = wanInterface;
+
 
         }
 
 
         @Override
-        public Integer call() {
+        public Integer call() throws IOException {
             //check the wan link usage
             //check(ipaddr);
-            Random random = new Random();
+            ProcessBuilder pb = new ProcessBuilder("/home/cisco/projects/TestWan/src/./test.exp",ipaddr,wanInterface);
 
-            Integer usage =random.nextInt(101);
-            return usage;
+            Process p1 = pb.start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+            String  output;
+            if ((output = br.readLine())!= null){
+                System.out.println(output);
+                return Integer.parseInt(output);
+            }else{
+                return 10000000;
+            }
+
+
         }
     }
 

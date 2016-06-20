@@ -10,20 +10,24 @@ package org.opendaylight.hello.impl;
 
 import javassist.bytecode.analysis.Executor;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.enable.dynamic.dns.adjustment.input.wan.router.Interface;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.Future;
 
 public class HelloWorldImpl implements HelloService {
     private static final Logger LOG = LoggerFactory.getLogger(HelloWorldImpl.class);
     private WanLinkUsageManager manager;
+    private HashMap<String,List<Interface>> wanMap;
+    private String wanLIinkresult;
+    private Integer wanLinkUsagePerRouter;
+    private Integer getWanLinkUsagePerRouterAssessment;
+    private Map<Integer,String> finalResult =new TreeMap<>();
 
     public HelloWorldImpl(WanLinkUsageManager manager) {
         this.manager = manager;
@@ -31,7 +35,14 @@ public class HelloWorldImpl implements HelloService {
 
     @Override
     public Future<RpcResult<EnableDynamicDNSAdjustmentOutput>> enableDynamicDNSAdjustment(EnableDynamicDNSAdjustmentInput input) {
-        checkWanUsage();
+
+        for (int i=0;i<input.getWanRouter().size();i++) {
+           wanMap.put(input.getWanRouter().get(i).getWanRouterIp(),input.getWanRouter().get(i).getInterface());
+        }
+
+
+
+        checkWanUsage(wanMap);
 
         EnableDynamicDNSAdjustmentOutput output = new EnableDynamicDNSAdjustmentOutputBuilder()
                 .setResult("success")
@@ -69,7 +80,7 @@ public class HelloWorldImpl implements HelloService {
 
         Runtime r = Runtime.getRuntime();
         try {
-            // r.exec("nsupdate -v ns3.txt",null,new File("/home/cisco/projects/ns-tool/"));
+
             r.exec("nsupdate -v ns3.txt",null,new File("/home/lailailai/"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,16 +93,48 @@ public class HelloWorldImpl implements HelloService {
         return RpcResultBuilder.success(output).buildFuture();
     }
 
+    @Override
+    public Future<RpcResult<WanLinkUsageInspectionOutput>> wanLinkUsageInspection(WanLinkUsageInspectionInput input) {
+
+        try {
+            ProcessBuilder pb = new ProcessBuilder("/home/cisco/projects/TestWan/src/./test.exp",input.getRouterIP(),input.getInterface());
+
+            Process p1 = pb.start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+            String  output;
+            while ((output = br.readLine())!= null){
+                wanLIinkresult = output;
+                System.out.println(output);
+            }
+
+            br.close();
+            p1.getInputStream().close();
+            p1.destroy();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+         WanLinkUsageInspectionOutput output = new WanLinkUsageInspectionOutputBuilder()
+                 .setResult(wanLIinkresult)
+                 .build();
+
+        return RpcResultBuilder.success(output).buildFuture();
+    }
 
 
-    public void checkWanUsage(){
+    public void checkWanUsage(HashMap<String,List<Interface>> wanMap){
 
 
+     for (String routerIp: wanMap.keySet()) {
+         for (int i=0;i<wanMap.get(routerIp).size();i++) {
+             int usage = manager.execute(routerIp, wanMap.get(routerIp).get(i).getInterfaceId());
+             wanLinkUsagePerRouter =   wanLinkUsagePerRouter+usage;
+         }
+         getWanLinkUsagePerRouterAssessment = wanLinkUsagePerRouter/wanMap.get(routerIp).size();
+         finalResult.put(getWanLinkUsagePerRouterAssessment,routerIp);
+     }
 
-
-            int usage1 = manager.execute("10.0.0.1");
-            int usage2 = manager.execute("10.0.0.2");
-            int usage3 = manager.execute("10.0.0.3");
 
         try {
             Thread.sleep(100000);
@@ -101,21 +144,15 @@ public class HelloWorldImpl implements HelloService {
 
 
 
-            LOG.info("link usage 10.0.0.1 ={}",usage1);
-            LOG.info("link usage 10.0.0.2 ={}",usage2);
-            LOG.info("link usage 10.0.0.3 ={}",usage3);
-
-
-        Map<Integer,String> linkUsageMap =new TreeMap<>();
-            linkUsageMap.put(usage1,"10.0.0.1");
-            linkUsageMap.put(usage2,"10.0.0.2");
-            linkUsageMap.put(usage3,"10.0.0.3");
 
 
 
-        System.out.println(linkUsageMap);
 
-        Iterator<String> iterator = linkUsageMap.values().iterator();
+
+
+        System.out.println(finalResult);
+
+        Iterator<String> iterator = finalResult.values().iterator();
 
         String server = "server 10.123.43.5";
         String debug = "debug yes";

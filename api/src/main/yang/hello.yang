@@ -44,14 +44,54 @@ module hello {
            rpc enable-dynamic-DNS-adjustment{
 
                     input{
+                       list wan-router{
+                          key wan-router-ip;
+                               leaf wan-router-ip{
+                                       type string;
+                                                }
+                               list interface{
+                                    key  interface-id;
+                                    leaf interface-id{
+                                              type string;
+                                                }
 
-                    }
+                                              }
+
+                                       }
+                        }
                     output{
                      leaf result{
                                    type string;
                                    }
                     }
            }
+
+
+
+           rpc wan-link-usage-inspection{
+                     input{
+                            leaf router-IP{
+                            type string;
+                            }
+                            leaf interface{
+                            type string;
+                            }
+                     }
+
+                     output{
+                           leaf result{
+                             type string;
+                           }
+                     }
+
+
+
+           }
+
+
+
+
+
 
 
 
