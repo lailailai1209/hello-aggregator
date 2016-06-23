@@ -7,7 +7,7 @@ This program and the accompanying materials are made available under the
 terms of the Eclipse Public License v1.0 which accompanies this distribution,
 and is available at http://www.eclipse.org/legal/epl-v10.html
 -->
-<features name="odl-hello-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+<features name="odl-webexwan-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
   <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
@@ -15,22 +15,22 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
   <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
   <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
-  <feature name='odl-hello-api' version='${project.version}' description='OpenDaylight :: hello :: api'>
+  <feature name='odl-webexwan-api' version='${project.version}' description='OpenDaylight :: webexwan :: api'>
     <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
-    <bundle>mvn:org.opendaylight.hello/hello-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.webexwan/webexwan-api/{{VERSION}}</bundle>
   </feature>
-  <feature name='odl-hello' version='${project.version}' description='OpenDaylight :: hello'>
+  <feature name='odl-webexwan' version='${project.version}' description='OpenDaylight :: webexwan'>
     <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
-    <feature version='${project.version}'>odl-hello-api</feature>
-    <bundle>mvn:org.opendaylight.hello/hello-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/hello.xml">mvn:org.opendaylight.hello/hello-impl/{{VERSION}}/xml/config</configfile>
+    <feature version='${project.version}'>odl-webexwan-api</feature>
+    <bundle>mvn:org.opendaylight.webexwan/webexwan-impl/{{VERSION}}</bundle>
+    <configfile finalname="${configfile.directory}/webexwan.xml">mvn:org.opendaylight.webexwan/webexwan-impl/{{VERSION}}/xml/config</configfile>
   </feature>
-  <feature name='odl-hello-rest' version='${project.version}' description='OpenDaylight :: hello :: REST'>
-    <feature version="${project.version}">odl-hello</feature>
+  <feature name='odl-webexwan-rest' version='${project.version}' description='OpenDaylight :: webexwan :: REST'>
+    <feature version="${project.version}">odl-webexwan</feature>
     <feature version="${restconf.version}">odl-restconf</feature>
   </feature>
-  <feature name='odl-hello-ui' version='${project.version}' description='OpenDaylight :: hello :: UI'>
-    <feature version="${project.version}">odl-hello-rest</feature>
+  <feature name='odl-webexwan-ui' version='${project.version}' description='OpenDaylight :: webexwan :: UI'>
+    <feature version="${project.version}">odl-webexwan-rest</feature>
     <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
     <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
     <feature version="${dlux.version}">odl-dlux-yangui</feature>

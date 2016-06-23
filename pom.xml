@@ -14,10 +14,10 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
     <relativePath/>
   </parent>
 
-  <groupId>org.opendaylight.hello</groupId>
-  <artifactId>hello-aggregator</artifactId>
+  <groupId>org.opendaylight.webexwan</groupId>
+  <artifactId>webexwan-aggregator</artifactId>
   <version>0.1.0-SNAPSHOT</version>
-  <name>hello</name>
+  <name>webexwan</name>
   <packaging>pom</packaging>
   <modelVersion>4.0.0</modelVersion>
 
@@ -26,10 +26,10 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
   </prerequisites>
 
   <scm>
-    <connection>scm:git:ssh://git.opendaylight.org:29418/hello.git</connection>
-    <developerConnection>scm:git:ssh://git.opendaylight.org:29418/hello.git</developerConnection>
+    <connection>scm:git:ssh://git.opendaylight.org:29418/webexwan.git</connection>
+    <developerConnection>scm:git:ssh://git.opendaylight.org:29418/webexwan.git</developerConnection>
     <tag>HEAD</tag>
-    <url>https://wiki.opendaylight.org/view/hello:Main</url>
+    <url>https://wiki.opendaylight.org/view/webexwan:Main</url>
   </scm>
 
   <modules>

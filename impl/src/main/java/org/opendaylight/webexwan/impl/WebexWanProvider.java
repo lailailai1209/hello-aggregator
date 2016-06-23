@@ -5,20 +5,20 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package org.opendaylight.hello.impl;
+package org.opendaylight.webexwan.impl;
 
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.HelloService;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.webex.wan.rev150105.WebexWanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelloProvider implements BindingAwareProvider, AutoCloseable {
+public class WebexWanProvider implements BindingAwareProvider, AutoCloseable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(HelloProvider.class);
-    private BindingAwareBroker.RpcRegistration<HelloService> helloService;
+    private static final Logger LOG = LoggerFactory.getLogger(WebexWanProvider.class);
+    private BindingAwareBroker.RpcRegistration<WebexWanService> webexWanService;
     private WanLinkUsageManager manager;
     private WebexWanTopoMgr webexWanTopoMgr;
     private DataBroker dataBroker;
@@ -26,16 +26,16 @@ public class HelloProvider implements BindingAwareProvider, AutoCloseable {
 
     @Override
     public void onSessionInitiated(ProviderContext session) {
-        LOG.info("HelloProvider Session Initiated");
+        LOG.info("WebexWanProvider Session Initiated");
         dataBroker = session.getSALService(DataBroker.class);
         webexWanTopoMgr = new WebexWanTopoMgr(dataBroker);
         this.manager = WanLinkUsageManager.getInstance();
-        helloService = session.addRpcImplementation(HelloService.class,new HelloWorldImpl(manager, webexWanTopoMgr));
+        webexWanService = session.addRpcImplementation(WebexWanService.class,new WebexWanServiceImpl(manager, webexWanTopoMgr));
     }
 
     @Override
     public void close() throws Exception {
-        LOG.info("HelloProvider Closed");
-        helloService.close();
+        LOG.info("WebexWanProvider Closed");
+        webexWanService.close();
     }
 }

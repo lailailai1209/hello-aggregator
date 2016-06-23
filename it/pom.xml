@@ -17,15 +17,15 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <relativePath/>
   </parent>
 
-  <groupId>org.opendaylight.hello</groupId>
-  <artifactId>hello-it</artifactId>
+  <groupId>org.opendaylight.webexwan</groupId>
+  <artifactId>webexwan-it</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <properties>
     <skipITs>false</skipITs>
-    <karaf.distro.groupId>org.opendaylight.hello</karaf.distro.groupId>
-    <karaf.distro.artifactId>hello-karaf</karaf.distro.artifactId>
+    <karaf.distro.groupId>org.opendaylight.webexwan</karaf.distro.groupId>
+    <karaf.distro.artifactId>webexwan-karaf</karaf.distro.artifactId>
     <karaf.distro.version>0.1.0-SNAPSHOT</karaf.distro.version>
     <karaf.distro.type>zip</karaf.distro.type>
   </properties>
@@ -33,7 +33,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>hello-features</artifactId>
+      <artifactId>webexwan-features</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

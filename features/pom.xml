@@ -16,8 +16,8 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
     <relativePath/>
   </parent>
 
-  <groupId>org.opendaylight.hello</groupId>
-  <artifactId>hello-features</artifactId>
+  <groupId>org.opendaylight.webexwan</groupId>
+  <artifactId>webexwan-features</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <name>${project.artifactId}</name>
 
@@ -101,19 +101,19 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>hello-impl</artifactId>
+      <artifactId>webexwan-impl</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>hello-impl</artifactId>
+      <artifactId>webexwan-impl</artifactId>
       <version>${project.version}</version>
       <type>xml</type>
       <classifier>config</classifier>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>hello-api</artifactId>
+      <artifactId>webexwan-api</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

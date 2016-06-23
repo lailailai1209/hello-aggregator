@@ -17,15 +17,15 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <relativePath/>
   </parent>
 
-  <groupId>org.opendaylight.hello</groupId>
-  <artifactId>hello-impl</artifactId>
+  <groupId>org.opendaylight.webexwan</groupId>
+  <artifactId>webexwan-impl</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>hello-api</artifactId>
+      <artifactId>webexwan-api</artifactId>
       <version>${project.version}</version>
     </dependency>
 

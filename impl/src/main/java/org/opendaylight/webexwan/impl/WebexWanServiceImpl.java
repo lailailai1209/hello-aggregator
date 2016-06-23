@@ -1,4 +1,4 @@
-package org.opendaylight.hello.impl;
+package org.opendaylight.webexwan.impl;
 
 /*
  * Copyright (c) Yoyodyne, Inc. and others.  All rights reserved.
@@ -13,10 +13,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.CheckedFuture;
 import com.google.common.util.concurrent.Futures;
 
+
 import javassist.bytecode.analysis.Executor;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.*;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.*;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.wan.router.Interface;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.webex.wan.rev150105.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.webex.wan.rev150105.config.site.setting.input.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.webex.wan.rev150105.config.site.setting.input.wan.router.Interface;
 
 import org.opendaylight.yangtools.concepts.ListenerRegistration;
 import org.opendaylight.yangtools.yang.binding.DataObject;
@@ -31,22 +32,31 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Future;
 
-public class HelloWorldImpl implements HelloService {
-    private static final Logger LOG = LoggerFactory.getLogger(HelloWorldImpl.class);
+public class WebexWanServiceImpl implements WebexWanService {
+    private static final Logger LOG = LoggerFactory.getLogger(WebexWanServiceImpl.class);
     private WanLinkUsageManager manager;
     private WebexWanTopoMgr topoMgr;
-    private Map<String,List<Interface>> wanMap = new HashMap<>();
+    private Map<String,List<Interface>> wanMap = new ConcurrentHashMap<>();
     private String wanLIinkresult;
     int wanLinkUsagePerRouter =0;
     private Integer getWanLinkUsagePerRouterAssessment;
     private Map<Integer,String> finalResult =new TreeMap<>();
-    private List<String> dnsServerList = new ArrayList<String>();
+    private List<DnsServer> dnsServerList = new CopyOnWriteArrayList<DnsServer>();
+    private List<WanRouter> wanRouterList = new CopyOnWriteArrayList<WanRouter>();
+    private PollingTask task;
+    private Thread newTaskThread;
 
-    public HelloWorldImpl(WanLinkUsageManager manager, WebexWanTopoMgr topoMgr) {
+    public WebexWanServiceImpl(WanLinkUsageManager manager, WebexWanTopoMgr topoMgr) {
         this.manager = manager;
         this.topoMgr = topoMgr;
+
+        task = new PollingTask(wanMap);
+        newTaskThread = new Thread(task);
+        newTaskThread.start();
     }
 
     @Override
@@ -54,16 +64,18 @@ public class HelloWorldImpl implements HelloService {
         for (int i=0;i<input.getWanRouter().size();i++) {
             wanMap.put(input.getWanRouter().get(i).getWanRouterIp(),input.getWanRouter().get(i).getInterface());
         }
+        task.setWanMap(wanMap);
         System.out.println(wanMap);
       
-        for (DnsServer dnsServer : input.getDnsServer()) {
-            dnsServerList.add(dnsServer.getDnsServerIp());
-        }
+        dnsServerList.addAll(input.getDnsServer());
+        wanRouterList.addAll(input.getWanRouter());
         topoMgr.updateTopology(input);
 
-        PollingTask task = new PollingTask(wanMap);
-        Thread newTaskThread = new Thread(task);
-        newTaskThread.start();
+        /*
+         PollingTask task = new PollingTask(wanMap);
+         Thread newTaskThread = new Thread(task);
+         newTaskThread.start();
+         */
 
         ConfigSiteSettingOutput output = new ConfigSiteSettingOutputBuilder()
                 .setResult("success")
@@ -81,7 +93,8 @@ public class HelloWorldImpl implements HelloService {
                 .build());
         }
 
-      for (String server : dnsServerList) {
+      for (DnsServer dnsServer : dnsServerList) {
+        String server = dnsServer.getDnsServerIp();
         String debug = "debug yes";
         String zone = "zone "+input.getZone();
         try {
@@ -157,7 +170,9 @@ public class HelloWorldImpl implements HelloService {
         @Override
         public void run() {
             while(true) {
-                checkWanUsage(wanMap);
+                if (!wanMap.isEmpty()) {
+                    checkWanUsage(wanMap);
+                }
                 try {
                     Thread.sleep(100000);
                 } catch (InterruptedException e) {
@@ -167,6 +182,10 @@ public class HelloWorldImpl implements HelloService {
         }
 
         public PollingTask(Map<String, List<Interface>> wanMap) {
+            this.wanMap = wanMap;
+        }
+
+        protected void setWanMap(Map<String, List<Interface>> wanMap) {
             this.wanMap = wanMap;
         }
     }

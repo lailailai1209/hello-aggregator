@@ -1,27 +1,27 @@
-module hello-impl {
+module webexwan-impl {
     yang-version 1;
-    namespace "urn:opendaylight:params:xml:ns:yang:hello:impl";
-    prefix "hello-impl";
+    namespace "urn:opendaylight:params:xml:ns:yang:webexwan:impl";
+    prefix "webexwan-impl";
 
     import config { prefix config; revision-date 2013-04-05; }
     import opendaylight-md-sal-binding { prefix md-sal-binding; revision-date 2013-10-28;}
 
     description
-        "Service definition for hello project";
+        "Service definition for webexwan project";
 
     revision "2014-12-10" {
         description
             "Initial revision";
     }
 
-    identity hello {
+    identity webexwan {
         base config:module-type;
-        config:java-name-prefix Hello;
+        config:java-name-prefix WebexWan;
     }
 
     augment "/config:modules/config:module/config:configuration" {
-        case hello {
-            when "/config:modules/config:module/config:type = 'hello'";
+        case webexwan {
+            when "/config:modules/config:module/config:type = 'webexwan'";
             container broker {
                 uses config:service-ref {
                     refine type {

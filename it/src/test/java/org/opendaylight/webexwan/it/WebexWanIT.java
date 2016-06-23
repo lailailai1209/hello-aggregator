@@ -5,7 +5,7 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package org.opendaylight.hello.it;
+package org.opendaylight.webexwan.it;
 
 import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.maven;
@@ -26,24 +26,24 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
-public class HelloIT extends AbstractMdsalTestBase {
-    private static final Logger LOG = LoggerFactory.getLogger(HelloIT.class);
+public class WebexWanIT extends AbstractMdsalTestBase {
+    private static final Logger LOG = LoggerFactory.getLogger(WebexWanIT.class);
 
     @Override
     public String getModuleName() {
-        return "hello";
+        return "webexwan";
     }
 
     @Override
     public String getInstanceName() {
-        return "hello-default";
+        return "webexwan-default";
     }
 
     @Override
     public MavenUrlReference getFeatureRepo() {
         return maven()
-                .groupId("org.opendaylight.hello")
-                .artifactId("hello-features")
+                .groupId("org.opendaylight.webexwan")
+                .artifactId("webexwan-features")
                 .classifier("features")
                 .type("xml")
                 .versionAsInProject();
@@ -51,20 +51,20 @@ public class HelloIT extends AbstractMdsalTestBase {
 
     @Override
     public String getFeatureName() {
-        return "odl-hello-ui";
+        return "odl-webexwan-ui";
     }
 
     @Override
     public Option getLoggingOption() {
         Option option = editConfigurationFilePut(ORG_OPS4J_PAX_LOGGING_CFG,
-                logConfiguration(HelloIT.class),
+                logConfiguration(WebexWanIT.class),
                 LogLevel.INFO.name());
         option = composite(option, super.getLoggingOption());
         return option;
     }
 
     @Test
-    public void testhelloFeatureLoad() {
+    public void testWebexWanFeatureLoad() {
         Assert.assertTrue(true);
     }
 }

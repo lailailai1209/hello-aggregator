@@ -1,10 +1,10 @@
-module hello {
+module webex-wan {
     yang-version 1;
-    namespace "urn:opendaylight:params:xml:ns:yang:hello";
-    prefix "hello";
+    namespace "urn:opendaylight:params:xml:ns:yang:webex:wan";
+    prefix "webex-wan";
 
     revision "2015-01-05" {
-        description "Initial revision of hello model";
+        description "Initial revision of webex-wan model";
     }
 
     rpc congfig-dns-setting {
