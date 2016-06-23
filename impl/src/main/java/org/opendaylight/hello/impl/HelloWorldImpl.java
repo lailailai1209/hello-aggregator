@@ -36,9 +36,9 @@ public class HelloWorldImpl implements HelloService {
     private static final Logger LOG = LoggerFactory.getLogger(HelloWorldImpl.class);
     private WanLinkUsageManager manager;
     private WebexWanTopoMgr topoMgr;
-    private HashMap<String,List<Interface>> wanMap;
+    private Map<String,List<Interface>> wanMap = new HashMap<>();
     private String wanLIinkresult;
-    private Integer wanLinkUsagePerRouter;
+    int wanLinkUsagePerRouter =0;
     private Integer getWanLinkUsagePerRouterAssessment;
     private Map<Integer,String> finalResult =new TreeMap<>();
     private List<String> dnsServerList = new ArrayList<String>();
@@ -51,18 +51,21 @@ public class HelloWorldImpl implements HelloService {
     @Override
     public Future<RpcResult<ConfigSiteSettingOutput>> configSiteSetting(ConfigSiteSettingInput input) {
         for (int i=0;i<input.getWanRouter().size();i++) {
-           wanMap.put(input.getWanRouter().get(i).getWanRouterIp(),input.getWanRouter().get(i).getInterface());
+            wanMap.put(input.getWanRouter().get(i).getWanRouterIp(),input.getWanRouter().get(i).getInterface());
         }
+        System.out.println(wanMap);
       
         dnsServerList.addAll(input.getDnsServerIp());
         topoMgr.updateTopology(input);
 
-        checkWanUsage(wanMap);
+
+        PollingTask task = new PollingTask(wanMap);
+        Thread newTaskThread = new Thread(task);
+        newTaskThread.start();
 
         ConfigSiteSettingOutput output = new ConfigSiteSettingOutputBuilder()
                 .setResult("success")
                 .build();
-
 
         return RpcResultBuilder.success(output).buildFuture();
     }
@@ -144,34 +147,55 @@ public class HelloWorldImpl implements HelloService {
     }
 
 
-    public void checkWanUsage(HashMap<String,List<Interface>> wanMap){
+    class PollingTask implements Runnable{
+
+        Map<String,List<Interface>> wanMap;
+
+
+        @Override
+        public void run() {
+            while(true) {
+                checkWanUsage(wanMap);
+                try {
+                    Thread.sleep(100000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public PollingTask(Map<String, List<Interface>> wanMap) {
+            this.wanMap = wanMap;
+        }
+    }
+
+
+    public void checkWanUsage(Map<String,List<Interface>> wanMap){
 
 
      for (String routerIp: wanMap.keySet()) {
          for (int i=0;i<wanMap.get(routerIp).size();i++) {
              int usage = manager.execute(routerIp, wanMap.get(routerIp).get(i).getInterfaceId());
+             System.out.println("the "+ wanMap.get(routerIp).get(i).getInterfaceId()+ "th interface traffic of router: "+routerIp+" is "+ usage);
              wanLinkUsagePerRouter =   wanLinkUsagePerRouter+usage;
+
          }
+
          getWanLinkUsagePerRouterAssessment = wanLinkUsagePerRouter/wanMap.get(routerIp).size();
          finalResult.put(getWanLinkUsagePerRouterAssessment,routerIp);
+         wanLinkUsagePerRouter=0;
+         getWanLinkUsagePerRouterAssessment = 0;
      }
 
 
         try {
-            Thread.sleep(100000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
-
-
-
-
-
-
-
         System.out.println(finalResult);
+        finalResult = new TreeMap<>();
         /*
         Iterator<String> iterator = finalResult.values().iterator();
 
@@ -201,6 +225,7 @@ public class HelloWorldImpl implements HelloService {
          e.printStackTrace();
      }
      */
+        /*
         Iterator<String> iterator = finalResult.values().iterator();
         String server = "server 10.123.43.5";
         String debug = "debug yes";
@@ -232,12 +257,12 @@ public class HelloWorldImpl implements HelloService {
 
 
 
-
+*/
 
 
      // execute shell script
 
-
+/**
         Runtime r = Runtime.getRuntime();
         try {
             // r.exec("nsupdate -v ns3.txt",null,new File("/home/cisco/projects/ns-tool/"));
@@ -246,7 +271,7 @@ public class HelloWorldImpl implements HelloService {
             e.printStackTrace();
         }
 
-
+*/
 
 
 

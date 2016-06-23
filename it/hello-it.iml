@@ -63,13 +63,14 @@
     <orderEntry type="library" name="Maven: org.apache.aries:org.apache.aries.util:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.aries.quiesce:org.apache.aries.quiesce.api:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.aries.proxy:org.apache.aries.proxy.api:1.0.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-buffer:4.0.36.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-common:4.0.36.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-transport:4.0.36.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-codec:4.0.36.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-codec-http:4.0.36.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-handler:4.0.36.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-transport-native-epoll:linux-x86_64:4.0.36.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-manager-facade-xml:0.5.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-buffer:4.0.37.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-common:4.0.37.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-transport:4.0.37.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-codec:4.0.37.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-codec-http:4.0.37.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-handler:4.0.37.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-transport-native-epoll:linux-x86_64:4.0.37.Final" level="project" />
     <orderEntry type="library" name="Maven: com.lmax:disruptor:3.3.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.scala-lang:scala-library:2.11.8" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.scala-lang:scala-reflect:2.11.8" level="project" />
@@ -95,7 +96,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:shutdown-impl:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-manager:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-persister-api:0.5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-manager-facade-xml:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-persister-file-xml-adapter:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-persister-impl:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:config-persister-feature-adapter:0.5.0-SNAPSHOT" level="project" />
@@ -111,7 +111,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:threadpool-config-api:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:threadpool-config-impl:0.5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.controller:sal-akka-raft:1.4.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.typesafe.akka:akka-testkit_2.11:2.4.4" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.controller:sal-common-api:1.4.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.controller:sal-common-impl:1.4.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.controller:sal-common-util:1.4.0-SNAPSHOT" level="project" />
@@ -187,8 +186,8 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.felix:org.apache.felix.metatype:1.1.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: net.sf.kxml:kxml2:2.2.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.opendaylight.aaa:aaa-authn:0.4.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.shiro:shiro-web:1.2.4" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.shiro:shiro-core:1.2.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.shiro:shiro-web:1.2.5" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.shiro:shiro-core:1.2.5" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.servicemix.bundles:org.apache.servicemix.bundles.commons-beanutils:1.8.3_2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.oltu.oauth2:org.apache.oltu.oauth2.resourceserver:1.0.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.oltu.oauth2:org.apache.oltu.oauth2.authzserver:1.0.0" level="project" />
