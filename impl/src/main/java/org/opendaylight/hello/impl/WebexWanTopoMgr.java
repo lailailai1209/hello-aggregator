@@ -32,6 +32,8 @@ import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.controller.md.sal.common.api.data.TransactionCommitFailedException;
 
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.wan.router.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.webex.topo.rev150105.*;
 
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev100924.Uri;
@@ -79,10 +81,13 @@ public class WebexWanTopoMgr {
     public WebexWanTopoMgr(DataBroker dataBroker) {
         this.dataBroker = dataBroker;
         initializeWebexwanTopology(LogicalDatastoreType.OPERATIONAL);
-        createNode("SP1");
-        createNode("SP1");
+        List<String> intfList = new ArrayList<String>();
+        intfList.add("GigabitEthernet0/1");
+        intfList.add("GigabitEthernet0/2");
+        createNode("SP1", intfList, "SP", null);
+        createNode("SP2", intfList, "SP", null);
         createLink("SP1", "GigabitEthernet0/2", "SP2", "GigabitEthernet0/2");
-        createLink("SP2", "GigabitEthernet0/2", "SP1", "GigabitEthernet0/2");
+        //createLink("SP2", "GigabitEthernet0/2", "SP1", "GigabitEthernet0/2");
     }
 
     private void initializeWebexwanTopology(LogicalDatastoreType type) {
@@ -123,7 +128,7 @@ public class WebexWanTopoMgr {
         }
     }
 
-    private void createNode(String nodeName) {
+    private void createNode(String nodeName, List<String> interfaces, String site, String ip) {
         NodeId nid = new NodeId(nodeName); 
         InstanceIdentifier<Node> path = InstanceIdentifier
                 .create(NetworkTopology.class)
@@ -133,28 +138,27 @@ public class WebexWanTopoMgr {
         nb.setNodeId(nid);
         nb.setKey(new NodeKey(nid));
         List<TerminationPoint> tpList = new ArrayList<TerminationPoint>();
-        TerminationPointBuilder tpb = new TerminationPointBuilder();
-        TpId tpId = new TpId("GigabitEthernet0/1");
-        tpb.setTpId(tpId);
-        tpb.setKey(new TerminationPointKey(tpId));
-        WebexTpAugmentationBuilder wtab = new WebexTpAugmentationBuilder();
-        wtab.setOutPps(100000L);
-        wtab.setOutBps(12800000L);
-        wtab.setInPps(100000L);
-        wtab.setInBps(12800000L);
-        tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
-        tpList.add(tpb.build());
-
-        tpId = new TpId("GigabitEthernet0/2"); 
-        tpb.setTpId(tpId);
-        tpb.setKey(new TerminationPointKey(tpId));
-        wtab.setOutPps(200000L);
-        wtab.setOutBps(25600000L);
-        wtab.setInPps(200000L);
-        wtab.setInBps(25600000L);
-        tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
-        tpList.add(tpb.build());
+        for (String intf : interfaces) {
+            TerminationPointBuilder tpb = new TerminationPointBuilder();
+            TpId tpId = new TpId(intf);
+            tpb.setTpId(tpId);
+            tpb.setKey(new TerminationPointKey(tpId));
+            WebexTpAugmentationBuilder wtab = new WebexTpAugmentationBuilder();
+            wtab.setOutPps(100000L);
+            wtab.setOutBps(12800000L);
+            wtab.setInPps(100000L);
+            wtab.setInBps(12800000L);
+            tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
+            tpList.add(tpb.build());
+        }
         nb.setTerminationPoint(tpList);
+
+        if (site != null) {
+            WebexNodeAugmentationBuilder wnab = new WebexNodeAugmentationBuilder();
+            wnab.setSite(site);
+            wnab.setIp(ip);
+            nb.addAugmentation(WebexNodeAugmentation.class, wnab.build());
+        } 
          
         final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
         transaction.put(LogicalDatastoreType.OPERATIONAL, path, nb.build(), true);
@@ -204,6 +208,27 @@ public class WebexWanTopoMgr {
     }
 
     public void updateTopology(ConfigSiteSettingInput input) {
+        for (WanRouter r : input.getWanRouter()) {
+            List<String> intfList = new ArrayList<String>();
+            intfList.add("GigabitEthernet0");
+            for (Interface i : r.getInterface()) {
+                intfList.add(i.getInterfaceId());
+            } 
+            createNode(r.getWanRouterName(), intfList, input.getSite(), r.getWanRouterIp());
+            createLink(r.getWanRouterName(), r.getInterface().get(0).getInterfaceId(), "SP1", "GigabitEthernet0/1");
+            // createLink("SP1", "GigabitEthernet0/1", r.getWanRouterName(), r.getInterface().get(0).getInterfaceId());
+            createLink(r.getWanRouterName(), r.getInterface().get(1).getInterfaceId(), "SP2", "GigabitEthernet0/1");
+            // createLink("SP2", "GigabitEthernet0/1", r.getWanRouterName(), r.getInterface().get(1).getInterfaceId());
+        }
+        for (DnsServer dnsServer : input.getDnsServer()) {
+            List<String> intfList = new ArrayList<String>();
+            intfList.add("eth0");
+            createNode(dnsServer.getDnsServerName(), intfList, input.getSite(), dnsServer.getDnsServerIp());
+            for (WanRouter r : input.getWanRouter()) {
+                createLink(dnsServer.getDnsServerName(), "eth0", r.getWanRouterName(), "GigabitEthernet0");
+                // createLink(r.getWanRouterName(), "GigabitEthernet0", dnsServer.getDnsServerName(), "eth0");
+            }
+        }
     }
 
     public void updateInterfaceStats(String nodeName, String intfName, Integer bps, Integer pps) {

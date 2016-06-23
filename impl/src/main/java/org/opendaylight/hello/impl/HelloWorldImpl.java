@@ -15,6 +15,7 @@ import com.google.common.util.concurrent.Futures;
 
 import javassist.bytecode.analysis.Executor;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.wan.router.Interface;
 
 import org.opendaylight.yangtools.concepts.ListenerRegistration;
@@ -55,9 +56,10 @@ public class HelloWorldImpl implements HelloService {
         }
         System.out.println(wanMap);
       
-        dnsServerList.addAll(input.getDnsServerIp());
+        for (DnsServer dnsServer : input.getDnsServer()) {
+            dnsServerList.add(dnsServer.getDnsServerIp());
+        }
         topoMgr.updateTopology(input);
-
 
         PollingTask task = new PollingTask(wanMap);
         Thread newTaskThread = new Thread(task);
