@@ -17,8 +17,14 @@ module hello {
                 leaf domain-name {
                     type string;
                 }
-                leaf-list dns-ip {
-                    type string;
+                list dns-ip {
+                    key ip;
+                    leaf ip {
+                        type string;
+                    }
+                    leaf site {
+                        type string;
+                    }
                 }
                 leaf operation {
                     type string;

@@ -29,8 +29,11 @@ import org.opendaylight.controller.md.sal.common.api.data.AsyncDataChangeEvent;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
+import org.opendaylight.controller.md.sal.common.api.data.TransactionCommitFailedException;
 
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.*;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.webex.topo.rev150105.*;
+
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev100924.Uri;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.LinkId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology;
@@ -38,6 +41,8 @@ import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.TopologyId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.TpId;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.link.attributes.DestinationBuilder;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.link.attributes.SourceBuilder;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyBuilder;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyKey;
@@ -64,9 +69,6 @@ import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by lailailai on 6/9/16.
- */
 public class WebexWanTopoMgr {
     private static final Logger LOG = LoggerFactory.getLogger(WebexWanTopoMgr.class);
 
@@ -76,6 +78,11 @@ public class WebexWanTopoMgr {
 
     public WebexWanTopoMgr(DataBroker dataBroker) {
         this.dataBroker = dataBroker;
+        initializeWebexwanTopology(LogicalDatastoreType.OPERATIONAL);
+        createNode("SP1");
+        createNode("SP1");
+        createLink("SP1", "GigabitEthernet0/2", "SP2", "GigabitEthernet0/2");
+        createLink("SP2", "GigabitEthernet0/2", "SP1", "GigabitEthernet0/2");
     }
 
     private void initializeWebexwanTopology(LogicalDatastoreType type) {
@@ -113,6 +120,86 @@ public class WebexWanTopoMgr {
             }
         } catch (Exception e) {
             LOG.error("Error initializing webex wan topology", e);
+        }
+    }
+
+    private void createNode(String nodeName) {
+        NodeId nid = new NodeId(nodeName); 
+        InstanceIdentifier<Node> path = InstanceIdentifier
+                .create(NetworkTopology.class)
+                .child(Topology.class, new TopologyKey(WEBEXWAN_TOPOLOGY_ID))
+                .child(Node.class, new NodeKey(nid));
+        NodeBuilder nb = new NodeBuilder();
+        nb.setNodeId(nid);
+        nb.setKey(new NodeKey(nid));
+        List<TerminationPoint> tpList = new ArrayList<TerminationPoint>();
+        TerminationPointBuilder tpb = new TerminationPointBuilder();
+        TpId tpId = new TpId("GigabitEthernet0/1");
+        tpb.setTpId(tpId);
+        tpb.setKey(new TerminationPointKey(tpId));
+        WebexTpAugmentationBuilder wtab = new WebexTpAugmentationBuilder();
+        wtab.setOutPps(100000L);
+        wtab.setOutBps(12800000L);
+        wtab.setInPps(100000L);
+        wtab.setInBps(12800000L);
+        tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
+        tpList.add(tpb.build());
+
+        tpId = new TpId("GigabitEthernet0/2"); 
+        tpb.setTpId(tpId);
+        tpb.setKey(new TerminationPointKey(tpId));
+        wtab.setOutPps(200000L);
+        wtab.setOutBps(25600000L);
+        wtab.setInPps(200000L);
+        wtab.setInBps(25600000L);
+        tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
+        tpList.add(tpb.build());
+        nb.setTerminationPoint(tpList);
+         
+        final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
+        transaction.put(LogicalDatastoreType.OPERATIONAL, path, nb.build(), true);
+        CheckedFuture<Void, TransactionCommitFailedException> future = transaction.submit();
+        try {
+            future.checkedGet();
+            LOG.info("write node {} successfully", nodeName);
+        } catch (TransactionCommitFailedException e) {
+            LOG.error("Failed to write node {}, {}", nodeName, e);
+        }
+    }
+    
+    private void createLink(String srcNode, String srcTp, String dstNode, String dstTp) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(srcNode);
+        sb.append(":");
+        sb.append(srcTp);
+        sb.append("-");
+        sb.append(dstNode);
+        sb.append(":");
+        sb.append(dstTp);
+        LinkId lid = new LinkId(sb.toString());
+        InstanceIdentifier<Link> path = InstanceIdentifier
+                .create(NetworkTopology.class)
+                .child(Topology.class, new TopologyKey(WEBEXWAN_TOPOLOGY_ID))
+                .child(Link.class, new LinkKey(lid));
+        LinkBuilder lb = new LinkBuilder();
+        lb.setLinkId(lid);
+        lb.setKey(new LinkKey(lid));
+        DestinationBuilder dstb = new DestinationBuilder();
+        dstb.setDestNode(new NodeId(dstNode));
+        dstb.setDestTp(new TpId(dstTp));
+        SourceBuilder srcb = new SourceBuilder();
+        srcb.setSourceNode(new NodeId(srcNode));
+        srcb.setSourceTp(new TpId(srcTp));
+        lb.setDestination(dstb.build());
+        lb.setSource(srcb.build());
+        final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
+        transaction.put(LogicalDatastoreType.OPERATIONAL, path, lb.build(), true);
+        CheckedFuture<Void, TransactionCommitFailedException> future = transaction.submit();
+        try {
+            future.checkedGet();
+            LOG.info("write link {} successfully", lid);
+        } catch (TransactionCommitFailedException e) {
+            LOG.error("Failed to write link {}, {}", lid, e);
         }
     }
 
