@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.aaa:aaa-authn-sssd:0.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-sssd/0.4.0-SNAPSHOT/aaa-authn-sssd-0.4.0-20160605.092952-87.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-sssd/0.4.0-SNAPSHOT/aaa-authn-sssd-0.4.0-20160621.145559-90.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-sssd/0.4.0-SNAPSHOT/aaa-authn-sssd-0.4.0-20160605.092952-87-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-sssd/0.4.0-SNAPSHOT/aaa-authn-sssd-0.4.0-20160621.145559-90-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-sssd/0.4.0-SNAPSHOT/aaa-authn-sssd-0.4.0-20160605.092952-87-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-authn-sssd/0.4.0-SNAPSHOT/aaa-authn-sssd-0.4.0-20160621.145559-90-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

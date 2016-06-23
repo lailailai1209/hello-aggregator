@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:sal-binding-api:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-api/1.4.0-SNAPSHOT/sal-binding-api-1.4.0-20160608.093519-265.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-api/1.4.0-SNAPSHOT/sal-binding-api-1.4.0-20160622.052541-303.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-api/1.4.0-SNAPSHOT/sal-binding-api-1.4.0-20160608.093519-265-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-api/1.4.0-SNAPSHOT/sal-binding-api-1.4.0-20160622.052541-303-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-api/1.4.0-SNAPSHOT/sal-binding-api-1.4.0-20160608.093519-265-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-api/1.4.0-SNAPSHOT/sal-binding-api-1.4.0-20160622.052541-303-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

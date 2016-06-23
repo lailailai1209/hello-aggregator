@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.aaa:aaa-shiro-act:0.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-shiro-act/0.4.0-SNAPSHOT/aaa-shiro-act-0.4.0-20160605.093206-83.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-shiro-act/0.4.0-SNAPSHOT/aaa-shiro-act-0.4.0-20160621.145850-86.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-shiro-act/0.4.0-SNAPSHOT/aaa-shiro-act-0.4.0-20160605.093206-83-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-shiro-act/0.4.0-SNAPSHOT/aaa-shiro-act-0.4.0-20160621.145850-86-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-shiro-act/0.4.0-SNAPSHOT/aaa-shiro-act-0.4.0-20160605.093206-83-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/aaa/aaa-shiro-act/0.4.0-SNAPSHOT/aaa-shiro-act-0.4.0-20160621.145850-86-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

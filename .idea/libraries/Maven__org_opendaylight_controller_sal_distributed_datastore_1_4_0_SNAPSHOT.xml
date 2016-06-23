@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:sal-distributed-datastore:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-distributed-datastore/1.4.0-SNAPSHOT/sal-distributed-datastore-1.4.0-20160608.093802-260.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-distributed-datastore/1.4.0-SNAPSHOT/sal-distributed-datastore-1.4.0-20160622.052558-296.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-distributed-datastore/1.4.0-SNAPSHOT/sal-distributed-datastore-1.4.0-20160608.093802-260-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-distributed-datastore/1.4.0-SNAPSHOT/sal-distributed-datastore-1.4.0-20160622.052558-296-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-distributed-datastore/1.4.0-SNAPSHOT/sal-distributed-datastore-1.4.0-20160608.093802-260-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-distributed-datastore/1.4.0-SNAPSHOT/sal-distributed-datastore-1.4.0-20160622.052558-296-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

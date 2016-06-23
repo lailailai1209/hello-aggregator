@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:config-persister-file-xml-adapter:0.5.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-persister-file-xml-adapter/0.5.0-SNAPSHOT/config-persister-file-xml-adapter-0.5.0-20160608.085138-274.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-persister-file-xml-adapter/0.5.0-SNAPSHOT/config-persister-file-xml-adapter-0.5.0-20160622.052334-315.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-persister-file-xml-adapter/0.5.0-SNAPSHOT/config-persister-file-xml-adapter-0.5.0-20160608.085138-274-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-persister-file-xml-adapter/0.5.0-SNAPSHOT/config-persister-file-xml-adapter-0.5.0-20160622.052334-315-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-persister-file-xml-adapter/0.5.0-SNAPSHOT/config-persister-file-xml-adapter-0.5.0-20160608.085138-274-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-persister-file-xml-adapter/0.5.0-SNAPSHOT/config-persister-file-xml-adapter-0.5.0-20160622.052334-315-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

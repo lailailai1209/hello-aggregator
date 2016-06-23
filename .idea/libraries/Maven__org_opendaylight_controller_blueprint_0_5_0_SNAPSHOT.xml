@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:blueprint:0.5.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/blueprint/0.5.0-SNAPSHOT/blueprint-0.5.0-20160608.085041-97.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/blueprint/0.5.0-SNAPSHOT/blueprint-0.5.0-20160622.052321-138.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/blueprint/0.5.0-SNAPSHOT/blueprint-0.5.0-20160608.085041-97-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/blueprint/0.5.0-SNAPSHOT/blueprint-0.5.0-20160622.052321-138-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/blueprint/0.5.0-SNAPSHOT/blueprint-0.5.0-20160608.085041-97-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/blueprint/0.5.0-SNAPSHOT/blueprint-0.5.0-20160622.052321-138-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

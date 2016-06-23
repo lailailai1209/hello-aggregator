@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.mdsal:mdsal-dom-inmemory-datastore:2.1.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/mdsal-dom-inmemory-datastore/2.1.0-SNAPSHOT/mdsal-dom-inmemory-datastore-2.1.0-20160607.172908-129.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/mdsal-dom-inmemory-datastore/2.1.0-SNAPSHOT/mdsal-dom-inmemory-datastore-2.1.0-20160620.111207-147.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/mdsal-dom-inmemory-datastore/2.1.0-SNAPSHOT/mdsal-dom-inmemory-datastore-2.1.0-20160607.172908-129-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/mdsal-dom-inmemory-datastore/2.1.0-SNAPSHOT/mdsal-dom-inmemory-datastore-2.1.0-20160620.111207-147-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/mdsal-dom-inmemory-datastore/2.1.0-SNAPSHOT/mdsal-dom-inmemory-datastore-2.1.0-20160607.172908-129-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/mdsal-dom-inmemory-datastore/2.1.0-SNAPSHOT/mdsal-dom-inmemory-datastore-2.1.0-20160620.111207-147-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

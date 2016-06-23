@@ -67,6 +67,7 @@ public class WanLinkUsageManager {
         public Integer call() throws IOException {
             //check the wan link usage
             //check(ipaddr);
+            /*
             ProcessBuilder pb = new ProcessBuilder("/home/cisco/projects/TestWan/src/./test.exp",ipaddr,wanInterface);
 
             Process p1 = pb.start();
@@ -77,7 +78,10 @@ public class WanLinkUsageManager {
                 return Integer.parseInt(output);
             }else{
                 return 10000000;
-            }
+            }*/
+            Random r = new Random();
+            return  r.nextInt(100);
+
 
 
         }

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:netty-timer-config:0.5.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-timer-config/0.5.0-SNAPSHOT/netty-timer-config-0.5.0-20160608.092418-268.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-timer-config/0.5.0-SNAPSHOT/netty-timer-config-0.5.0-20160622.052500-309.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-timer-config/0.5.0-SNAPSHOT/netty-timer-config-0.5.0-20160608.092418-268-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-timer-config/0.5.0-SNAPSHOT/netty-timer-config-0.5.0-20160622.052500-309-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-timer-config/0.5.0-SNAPSHOT/netty-timer-config-0.5.0-20160608.092418-268-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-timer-config/0.5.0-SNAPSHOT/netty-timer-config-0.5.0-20160622.052500-309-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

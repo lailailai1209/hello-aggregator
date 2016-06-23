@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:messagebus-api:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/messagebus-api/1.4.0-SNAPSHOT/messagebus-api-1.4.0-20160608.092254-268.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/messagebus-api/1.4.0-SNAPSHOT/messagebus-api-1.4.0-20160622.052453-309.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/messagebus-api/1.4.0-SNAPSHOT/messagebus-api-1.4.0-20160608.092254-268-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/messagebus-api/1.4.0-SNAPSHOT/messagebus-api-1.4.0-20160622.052453-309-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/messagebus-api/1.4.0-SNAPSHOT/messagebus-api-1.4.0-20160608.092254-268-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/messagebus-api/1.4.0-SNAPSHOT/messagebus-api-1.4.0-20160622.052453-309-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

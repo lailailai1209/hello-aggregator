@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:sal-karaf-xsql:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-karaf-xsql/1.4.0-SNAPSHOT/sal-karaf-xsql-1.4.0-20160608.093950-260.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-karaf-xsql/1.4.0-SNAPSHOT/sal-karaf-xsql-1.4.0-20160622.052613-295.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-karaf-xsql/1.4.0-SNAPSHOT/sal-karaf-xsql-1.4.0-20160608.093950-260-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-karaf-xsql/1.4.0-SNAPSHOT/sal-karaf-xsql-1.4.0-20160622.052613-295-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-karaf-xsql/1.4.0-SNAPSHOT/sal-karaf-xsql-1.4.0-20160608.093950-260-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-karaf-xsql/1.4.0-SNAPSHOT/sal-karaf-xsql-1.4.0-20160622.052613-295-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

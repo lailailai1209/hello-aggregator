@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.yangtools:object-cache-noop:1.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/object-cache-noop/1.0.0-SNAPSHOT/object-cache-noop-1.0.0-20160608.104836-161.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/object-cache-noop/1.0.0-SNAPSHOT/object-cache-noop-1.0.0-20160621.124306-172.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/object-cache-noop/1.0.0-SNAPSHOT/object-cache-noop-1.0.0-20160608.104836-161-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/object-cache-noop/1.0.0-SNAPSHOT/object-cache-noop-1.0.0-20160621.124306-172-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/object-cache-noop/1.0.0-SNAPSHOT/object-cache-noop-1.0.0-20160608.104836-161-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/object-cache-noop/1.0.0-SNAPSHOT/object-cache-noop-1.0.0-20160621.124306-172-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

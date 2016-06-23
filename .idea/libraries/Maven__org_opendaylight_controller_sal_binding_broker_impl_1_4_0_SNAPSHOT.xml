@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:sal-binding-broker-impl:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-broker-impl/1.4.0-SNAPSHOT/sal-binding-broker-impl-1.4.0-20160608.093531-264.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-broker-impl/1.4.0-SNAPSHOT/sal-binding-broker-impl-1.4.0-20160622.052542-302.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-broker-impl/1.4.0-SNAPSHOT/sal-binding-broker-impl-1.4.0-20160608.093531-264-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-broker-impl/1.4.0-SNAPSHOT/sal-binding-broker-impl-1.4.0-20160622.052542-302-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-broker-impl/1.4.0-SNAPSHOT/sal-binding-broker-impl-1.4.0-20160608.093531-264-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-binding-broker-impl/1.4.0-SNAPSHOT/sal-binding-broker-impl-1.4.0-20160622.052542-302-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

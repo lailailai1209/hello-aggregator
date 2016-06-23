@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.dlux:dlux.common.authentication:0.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication/0.4.0-SNAPSHOT/dlux.common.authentication-0.4.0-20160605.072752-37.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication/0.4.0-SNAPSHOT/dlux.common.authentication-0.4.0-20160619.073601-44.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication/0.4.0-SNAPSHOT/dlux.common.authentication-0.4.0-20160605.072752-37-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication/0.4.0-SNAPSHOT/dlux.common.authentication-0.4.0-20160619.073601-44-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication/0.4.0-SNAPSHOT/dlux.common.authentication-0.4.0-20160605.072752-37-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.common.authentication/0.4.0-SNAPSHOT/dlux.common.authentication-0.4.0-20160619.073601-44-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

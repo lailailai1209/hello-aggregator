@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.mdsal.model:ietf-topology-isis:2013.10.21.9-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-topology-isis/2013.10.21.9-SNAPSHOT/ietf-topology-isis-2013.10.21.9-20160607.172940-127.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-topology-isis/2013.10.21.9-SNAPSHOT/ietf-topology-isis-2013.10.21.9-20160620.111242-144.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-topology-isis/2013.10.21.9-SNAPSHOT/ietf-topology-isis-2013.10.21.9-20160607.172940-127-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-topology-isis/2013.10.21.9-SNAPSHOT/ietf-topology-isis-2013.10.21.9-20160620.111242-144-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-topology-isis/2013.10.21.9-SNAPSHOT/ietf-topology-isis-2013.10.21.9-20160607.172940-127-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-topology-isis/2013.10.21.9-SNAPSHOT/ietf-topology-isis-2013.10.21.9-20160620.111242-144-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

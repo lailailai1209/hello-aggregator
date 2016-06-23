@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.dlux:dlux.loader.resources:0.3.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.loader.resources/0.3.0-SNAPSHOT/dlux.loader.resources-0.3.0-20160605.072815-36.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.loader.resources/0.3.0-SNAPSHOT/dlux.loader.resources-0.3.0-20160619.073619-42.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.loader.resources/0.3.0-SNAPSHOT/dlux.loader.resources-0.3.0-20160605.072815-36-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.loader.resources/0.3.0-SNAPSHOT/dlux.loader.resources-0.3.0-20160619.073619-42-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.loader.resources/0.3.0-SNAPSHOT/dlux.loader.resources-0.3.0-20160605.072815-36-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/dlux/dlux.loader.resources/0.3.0-SNAPSHOT/dlux.loader.resources-0.3.0-20160619.073619-42-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

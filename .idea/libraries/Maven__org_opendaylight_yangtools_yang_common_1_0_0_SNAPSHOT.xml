@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.yangtools:yang-common:1.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-common/1.0.0-SNAPSHOT/yang-common-1.0.0-20160608.095057-160.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-common/1.0.0-SNAPSHOT/yang-common-1.0.0-20160621.124421-172.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-common/1.0.0-SNAPSHOT/yang-common-1.0.0-20160608.095057-160-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-common/1.0.0-SNAPSHOT/yang-common-1.0.0-20160621.124421-172-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-common/1.0.0-SNAPSHOT/yang-common-1.0.0-20160608.095057-160-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/yangtools/yang-common/1.0.0-SNAPSHOT/yang-common-1.0.0-20160621.124421-172-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

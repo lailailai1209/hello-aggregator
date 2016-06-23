@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.mdsal.model:iana-if-type-2014-05-08:2014.05.08.9-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/iana-if-type-2014-05-08/2014.05.08.9-SNAPSHOT/iana-if-type-2014-05-08-2014.05.08.9-20160607.172923-127.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/iana-if-type-2014-05-08/2014.05.08.9-SNAPSHOT/iana-if-type-2014-05-08-2014.05.08.9-20160620.111225-145.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/iana-if-type-2014-05-08/2014.05.08.9-SNAPSHOT/iana-if-type-2014-05-08-2014.05.08.9-20160607.172923-127-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/iana-if-type-2014-05-08/2014.05.08.9-SNAPSHOT/iana-if-type-2014-05-08-2014.05.08.9-20160620.111225-145-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/iana-if-type-2014-05-08/2014.05.08.9-SNAPSHOT/iana-if-type-2014-05-08-2014.05.08.9-20160607.172923-127-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/iana-if-type-2014-05-08/2014.05.08.9-SNAPSHOT/iana-if-type-2014-05-08-2014.05.08.9-20160620.111225-145-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

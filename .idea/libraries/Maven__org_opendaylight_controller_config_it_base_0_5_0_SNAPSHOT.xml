@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:config-it-base:0.5.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-it-base/0.5.0-SNAPSHOT/config-it-base-0.5.0-20160608.085056-276.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-it-base/0.5.0-SNAPSHOT/config-it-base-0.5.0-20160622.052325-317.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-it-base/0.5.0-SNAPSHOT/config-it-base-0.5.0-20160608.085056-276-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-it-base/0.5.0-SNAPSHOT/config-it-base-0.5.0-20160622.052325-317-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-it-base/0.5.0-SNAPSHOT/config-it-base-0.5.0-20160608.085056-276-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/config-it-base/0.5.0-SNAPSHOT/config-it-base-0.5.0-20160622.052325-317-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

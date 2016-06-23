@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:netty-config-api:0.5.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-config-api/0.5.0-SNAPSHOT/netty-config-api-0.5.0-20160608.092341-269.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-config-api/0.5.0-SNAPSHOT/netty-config-api-0.5.0-20160622.052457-310.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-config-api/0.5.0-SNAPSHOT/netty-config-api-0.5.0-20160608.092341-269-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-config-api/0.5.0-SNAPSHOT/netty-config-api-0.5.0-20160622.052457-310-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-config-api/0.5.0-SNAPSHOT/netty-config-api-0.5.0-20160608.092341-269-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/netty-config-api/0.5.0-SNAPSHOT/netty-config-api-0.5.0-20160622.052457-310-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

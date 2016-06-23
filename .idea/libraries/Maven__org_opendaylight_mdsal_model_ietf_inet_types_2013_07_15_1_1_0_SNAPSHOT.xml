@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.mdsal.model:ietf-inet-types-2013-07-15:1.1.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-inet-types-2013-07-15/1.1.0-SNAPSHOT/ietf-inet-types-2013-07-15-1.1.0-20160607.172929-129.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-inet-types-2013-07-15/1.1.0-SNAPSHOT/ietf-inet-types-2013-07-15-1.1.0-20160620.111231-146.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-inet-types-2013-07-15/1.1.0-SNAPSHOT/ietf-inet-types-2013-07-15-1.1.0-20160607.172929-129-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-inet-types-2013-07-15/1.1.0-SNAPSHOT/ietf-inet-types-2013-07-15-1.1.0-20160620.111231-146-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-inet-types-2013-07-15/1.1.0-SNAPSHOT/ietf-inet-types-2013-07-15-1.1.0-20160607.172929-129-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/mdsal/model/ietf-inet-types-2013-07-15/1.1.0-SNAPSHOT/ietf-inet-types-2013-07-15-1.1.0-20160620.111231-146-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

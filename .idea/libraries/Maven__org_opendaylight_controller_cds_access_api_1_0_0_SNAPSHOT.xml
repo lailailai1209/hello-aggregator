@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:cds-access-api:1.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/cds-access-api/1.0.0-SNAPSHOT/cds-access-api-1.0.0-20160608.085044-30.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/cds-access-api/1.0.0-SNAPSHOT/cds-access-api-1.0.0-20160622.052322-71.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/cds-access-api/1.0.0-SNAPSHOT/cds-access-api-1.0.0-20160608.085044-30-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/cds-access-api/1.0.0-SNAPSHOT/cds-access-api-1.0.0-20160622.052322-71-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/cds-access-api/1.0.0-SNAPSHOT/cds-access-api-1.0.0-20160608.085044-30-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/cds-access-api/1.0.0-SNAPSHOT/cds-access-api-1.0.0-20160622.052322-71-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

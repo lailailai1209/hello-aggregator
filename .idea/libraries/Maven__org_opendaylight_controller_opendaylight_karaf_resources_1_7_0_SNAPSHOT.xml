@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:opendaylight-karaf-resources:1.7.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/opendaylight-karaf-resources/1.7.0-SNAPSHOT/opendaylight-karaf-resources-1.7.0-20160608.093334-265.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/opendaylight-karaf-resources/1.7.0-SNAPSHOT/opendaylight-karaf-resources-1.7.0-20160622.052534-305.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/opendaylight-karaf-resources/1.7.0-SNAPSHOT/opendaylight-karaf-resources-1.7.0-20160608.093334-265-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/opendaylight-karaf-resources/1.7.0-SNAPSHOT/opendaylight-karaf-resources-1.7.0-20160622.052534-305-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/opendaylight-karaf-resources/1.7.0-SNAPSHOT/opendaylight-karaf-resources-1.7.0-20160608.093334-265-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/opendaylight-karaf-resources/1.7.0-SNAPSHOT/opendaylight-karaf-resources-1.7.0-20160622.052534-305-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

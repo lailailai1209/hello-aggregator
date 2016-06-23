@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.opendaylight.controller:sal-cluster-admin:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-cluster-admin/1.4.0-SNAPSHOT/sal-cluster-admin-1.4.0-20160608.093632-47.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-cluster-admin/1.4.0-SNAPSHOT/sal-cluster-admin-1.4.0-20160622.052547-85.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-cluster-admin/1.4.0-SNAPSHOT/sal-cluster-admin-1.4.0-20160608.093632-47-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-cluster-admin/1.4.0-SNAPSHOT/sal-cluster-admin-1.4.0-20160622.052547-85-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-cluster-admin/1.4.0-SNAPSHOT/sal-cluster-admin-1.4.0-20160608.093632-47-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opendaylight/controller/sal-cluster-admin/1.4.0-SNAPSHOT/sal-cluster-admin-1.4.0-20160622.052547-85-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
