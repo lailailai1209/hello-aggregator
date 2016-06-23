@@ -7,94 +7,125 @@ module hello {
         description "Initial revision of hello model";
     }
 
-
-
-     rpc congfig-dns-setting{
-                  input{
-                       leaf dns-server-ip{
-                          type string;
-                       }
-                       leaf zone{
-                          type string;
-                       }
-
-                       list dns-record{
-                            key domain-name;
-                            leaf domain-name{
-                              type string;
-                            }
-                            leaf dns-ip{
-                              type string;
-                            }
-                            leaf operation{
-                              type string;
-                            }
-
-                       }
-
-                  }
-
-                  output {
-                          leaf result{
-                             type string;
-                          }
-                  }
-           }
-
-           rpc enable-dynamic-DNS-adjustment{
-
-                    input{
-                       list wan-router{
-                          key wan-router-ip;
-                               leaf wan-router-ip{
-                                       type string;
-                                                }
-                               list interface{
-                                    key  interface-id;
-                                    leaf interface-id{
-                                              type string;
-                                                }
-
-                                              }
-
-                                       }
-                        }
-                    output{
-                     leaf result{
-                                   type string;
-                                   }
+    rpc congfig-dns-setting {
+        input {
+            leaf zone {
+                type string;
+            }
+            list dns-record {
+                key domain-name;
+                leaf domain-name {
+                    type string;
+                }
+                leaf-list dns-ip {
+                    type string;
+                }
+                leaf operation {
+                    type string;
+                }
+            }
+            list srv-record {
+                key service-name;
+                leaf service-name {
+                    type string;
+                }
+                leaf operation {
+                    type string;
+                }
+                list srv-server {
+                    key domain-name;
+                    leaf domain-name {
+                        type string;
                     }
-           }
+                    leaf priority {
+                        type uint16;
+                    }
+                    leaf weight {
+                        type uint16;
+                    }
+                }
+            }
+        }
+        output {
+            leaf result {
+                type string;
+            }
+        }
+    }
 
+    rpc config-site-setting {
+        description "config site";
+        input {
+            leaf site {
+                type string;
+            }
+            list wan-router {
+                key wan-router-ip;
+                leaf wan-router-ip {
+                    type string;
+                }
+                list interface {
+                    key  interface-id;
+                    leaf interface-id {
+                        type string;
+                    }
+                }
+                leaf username {
+                    type string;
+                }
+                leaf password {
+                    type string;
+                }
+            }
+            leaf-list dns-server-ip {
+                type string;
+            }
+        }
+        output {
+            leaf result{
+                type string;
+            }
+        }
+    }
 
+    rpc config-global-setting {
+        input {
+            leaf polling-interval {
+                description "the interval in seconds to poll statistics from webex wan routers";
+                type uint16 {
+                    range "10..120";
+                }
+            }
+            container dns-polling-policy {
+                leaf minimal-threshold {
+                    description "if wan usage of each site is less than minimal threshold, not update dns setting";
+                    type uint8 {
+                        range "0..100";
+                    }
+                }
+            }
+        }
+        output {
+            leaf result{
+                type string;
+            }
+        }
+    }
 
-           rpc wan-link-usage-inspection{
-                     input{
-                            leaf router-IP{
-                            type string;
-                            }
-                            leaf interface{
-                            type string;
-                            }
-                     }
+    rpc wan-link-usage-inspection {
+        input {
+            leaf router-IP {
+                type string;
+            }
+            leaf interface {
+                type string;
+            }
+        }
 
-                     output{
-                           leaf result{
-                             type string;
-                           }
-                     }
-
-
-
-           }
-
-
-
-
-
-
-
-
-
-
+        output {
+            leaf result {
+                type string;
+            }
+        }
+    }
 }

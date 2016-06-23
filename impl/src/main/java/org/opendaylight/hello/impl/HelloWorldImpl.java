@@ -8,11 +8,23 @@ package org.opendaylight.hello.impl;
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.util.concurrent.CheckedFuture;
+import com.google.common.util.concurrent.Futures;
+
 import javassist.bytecode.analysis.Executor;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.*;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.enable.dynamic.dns.adjustment.input.wan.router.Interface;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.config.site.setting.input.wan.router.Interface;
+
+import org.opendaylight.yangtools.concepts.ListenerRegistration;
+import org.opendaylight.yangtools.yang.binding.DataObject;
+import org.opendaylight.yangtools.yang.binding.KeyedInstanceIdentifier;
+import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
+import org.opendaylight.yangtools.yang.common.RpcError;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,28 +35,31 @@ import java.util.concurrent.Future;
 public class HelloWorldImpl implements HelloService {
     private static final Logger LOG = LoggerFactory.getLogger(HelloWorldImpl.class);
     private WanLinkUsageManager manager;
+    private WebexWanTopoMgr topoMgr;
     private HashMap<String,List<Interface>> wanMap;
     private String wanLIinkresult;
     private Integer wanLinkUsagePerRouter;
     private Integer getWanLinkUsagePerRouterAssessment;
     private Map<Integer,String> finalResult =new TreeMap<>();
+    private List<String> dnsServerList = new ArrayList<String>();
 
-    public HelloWorldImpl(WanLinkUsageManager manager) {
+    public HelloWorldImpl(WanLinkUsageManager manager, WebexWanTopoMgr topoMgr) {
         this.manager = manager;
+        this.topoMgr = topoMgr;
     }
 
     @Override
-    public Future<RpcResult<EnableDynamicDNSAdjustmentOutput>> enableDynamicDNSAdjustment(EnableDynamicDNSAdjustmentInput input) {
-
+    public Future<RpcResult<ConfigSiteSettingOutput>> configSiteSetting(ConfigSiteSettingInput input) {
         for (int i=0;i<input.getWanRouter().size();i++) {
            wanMap.put(input.getWanRouter().get(i).getWanRouterIp(),input.getWanRouter().get(i).getInterface());
         }
-
-
+      
+        dnsServerList.addAll(input.getDnsServerIp());
+        topoMgr.updateTopology(input);
 
         checkWanUsage(wanMap);
 
-        EnableDynamicDNSAdjustmentOutput output = new EnableDynamicDNSAdjustmentOutputBuilder()
+        ConfigSiteSettingOutput output = new ConfigSiteSettingOutputBuilder()
                 .setResult("success")
                 .build();
 
@@ -55,8 +70,13 @@ public class HelloWorldImpl implements HelloService {
     @Override
     public Future<RpcResult<CongfigDnsSettingOutput>> congfigDnsSetting(CongfigDnsSettingInput input) {
         LOG.info("test dns rpc input {}",input);
+        if (dnsServerList.isEmpty()) {
+            return Futures.immediateFuture(RpcResultBuilder.<CongfigDnsSettingOutput>failed()
+                .withError(RpcError.ErrorType.APPLICATION, "no DNS servers configured")
+                .build());
+        }
 
-        String server = "server "+input.getDnsServerIp();
+      for (String server : dnsServerList) {
         String debug = "debug yes";
         String zone = "zone "+input.getZone();
         try {
@@ -85,6 +105,7 @@ public class HelloWorldImpl implements HelloService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+      }
 
         CongfigDnsSettingOutput output = new CongfigDnsSettingOutputBuilder()
                 .setResult("success")
@@ -232,9 +253,8 @@ public class HelloWorldImpl implements HelloService {
 
     }
 
-
-
-
-
-
+    public Future<RpcResult<ConfigGlobalSettingOutput>> configGlobalSetting(ConfigGlobalSettingInput input) {
+        ConfigGlobalSettingOutputBuilder cgsob = new ConfigGlobalSettingOutputBuilder();
+        return RpcResultBuilder.success(cgsob.build()).buildFuture();
+    }
 }

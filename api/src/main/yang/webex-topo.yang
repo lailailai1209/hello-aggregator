@@ -1,0 +1,53 @@
+module webex-topo {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:webex:topo";
+    prefix "webex-topo";
+
+    import network-topology { prefix nt; revision-date 2013-10-21; }
+    import ietf-inet-types { prefix inet; revision-date 2010-09-24; }
+    import ietf-yang-types { prefix yang; revision-date 2013-07-15; }
+    import yang-ext { prefix ext; revision-date 2013-07-09; }
+
+    revision "2015-01-05" {
+        description "Initial revision of webex wan topology model";
+    }
+
+    grouping webex-node-attributes {
+        leaf site {
+            type string;
+        }
+        leaf ip {
+            type string;
+        }
+    }
+
+    augment "/nt:network-topology/nt:topology/nt:node" {
+        ext:augment-identifier "webex-node-augmentation";
+        uses webex-node-attributes;
+    }
+
+    grouping webex-tp-attributes {
+        leaf out-pps {
+            type uint32;
+        }
+        leaf out-bps {
+            type uint32;
+        }
+        leaf in-pps {
+            type uint32;
+        }
+        leaf in-bps {
+            type uint32;
+        }
+    }
+
+    augment "/nt:network-topology/nt:topology/nt:node/nt:termination-point" {
+        ext:augment-identifier "webex-tp-augmentation";
+        uses webex-tp-attributes;
+    }
+
+    augment "/nt:network-topology/nt:topology/nt:link" {
+        ext:augment-identifier "webex-link-augmentation";
+        uses webex-tp-attributes;
+    }
+}

@@ -7,6 +7,7 @@
  */
 package org.opendaylight.hello.impl;
 
+import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
@@ -19,21 +20,22 @@ public class HelloProvider implements BindingAwareProvider, AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(HelloProvider.class);
     private BindingAwareBroker.RpcRegistration<HelloService> helloService;
     private WanLinkUsageManager manager;
+    private WebexWanTopoMgr webexWanTopoMgr;
+    private DataBroker dataBroker;
 
 
     @Override
     public void onSessionInitiated(ProviderContext session) {
         LOG.info("HelloProvider Session Initiated");
+        dataBroker = session.getSALService(DataBroker.class);
+        webexWanTopoMgr = new WebexWanTopoMgr(dataBroker);
         this.manager = WanLinkUsageManager.getInstance();
-        helloService = session.addRpcImplementation(HelloService.class,new HelloWorldImpl(manager));
-
-
-
+        helloService = session.addRpcImplementation(HelloService.class,new HelloWorldImpl(manager, webexWanTopoMgr));
     }
 
     @Override
     public void close() throws Exception {
         LOG.info("HelloProvider Closed");
+        helloService.close();
     }
-
 }
