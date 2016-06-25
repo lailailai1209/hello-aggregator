@@ -7,7 +7,7 @@ module webex-wan {
         description "Initial revision of webex-wan model";
     }
 
-    rpc congfig-dns-setting {
+    rpc config-dns-setting {
         input {
             leaf zone {
                 type string;
@@ -48,6 +48,9 @@ module webex-wan {
                     }
                     leaf weight {
                         type uint16;
+                    }
+                    leaf site {
+                        type string;
                     }
                 }
             }

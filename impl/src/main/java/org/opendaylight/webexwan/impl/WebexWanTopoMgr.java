@@ -231,6 +231,35 @@ public class WebexWanTopoMgr {
         }
     }
 
-    public void updateInterfaceStats(String nodeName, String intfName, Integer bps, Integer pps) {
+    public void updateInterfaceStats(String nodeName, String intfName, Long pps, Long bps) {
+        NodeId nid = new NodeId(nodeName);
+        InstanceIdentifier<Node> path = InstanceIdentifier
+                .create(NetworkTopology.class)
+                .child(Topology.class, new TopologyKey(WEBEXWAN_TOPOLOGY_ID))
+                .child(Node.class, new NodeKey(nid));
+        NodeBuilder nb = new NodeBuilder();
+        nb.setNodeId(nid);
+        nb.setKey(new NodeKey(nid));
+        List<TerminationPoint> tpList = new ArrayList<TerminationPoint>();
+        TerminationPointBuilder tpb = new TerminationPointBuilder();
+        TpId tpId = new TpId(intfName);
+        tpb.setTpId(tpId);
+        tpb.setKey(new TerminationPointKey(tpId));
+        WebexTpAugmentationBuilder wtab = new WebexTpAugmentationBuilder();
+        wtab.setOutPps(pps);
+        wtab.setOutBps(bps);
+        tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
+        tpList.add(tpb.build());
+        nb.setTerminationPoint(tpList);
+
+        final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
+        transaction.put(LogicalDatastoreType.OPERATIONAL, path, nb.build(), true);
+        CheckedFuture<Void, TransactionCommitFailedException> future = transaction.submit();
+        try {
+            future.checkedGet();
+            LOG.info("update stats {}:{} successfully", nodeName, intfName);
+        } catch (TransactionCommitFailedException e) {
+            LOG.error("Failed to update stats {}:{}, {}", nodeName, intfName, e);
+        }
     }
 }

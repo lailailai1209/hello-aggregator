@@ -1,6 +1,8 @@
 package org.opendaylight.webexwan.impl;
 
 
+import org.opendaylight.webexwan.impl.util.WanIntfStats;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,12 +35,12 @@ public class WanLinkUsageManager {
         return INSTANCE;
     }
 
-    public Integer execute(String ipAddr,String wanInterface) {
+    public WanIntfStats execute(String ipAddr,String wanInterface) {
 
 
-        Integer usage = null;
+        WanIntfStats usage = null;
         try {
-            usage = (Integer) INSTANCE.threadpool.submit(new WorkerThread(ipAddr,wanInterface)).get();
+            usage = (WanIntfStats) INSTANCE.threadpool.submit(new WorkerThread(ipAddr,wanInterface)).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -48,7 +50,7 @@ public class WanLinkUsageManager {
 
     }
 
-    class WorkerThread implements Callable {
+    class WorkerThread implements Callable<WanIntfStats> {
 
         private final String ipaddr;
         private final String wanInterface;
@@ -64,7 +66,7 @@ public class WanLinkUsageManager {
 
 
         @Override
-        public Integer call() throws IOException {
+        public WanIntfStats call() throws IOException {
             //check the wan link usage
             //check(ipaddr);
             /*
@@ -80,13 +82,11 @@ public class WanLinkUsageManager {
                 return 10000000;
             }*/
             Random r = new Random();
-            return  r.nextInt(100);
-
-
-
+            int pps = r.nextInt(100);
+            int bps = pps * 128;
+            
+            WanIntfStats stats = new WanIntfStats(Integer.valueOf(pps).longValue(), Integer.valueOf(bps).longValue());
+            return stats;
         }
     }
-
-
-
 }
