@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Webex sd-wan</title>
+
+    <!-- Favicons-->
+    <link rel="icon" href="" sizes="32x32">
+    <!-- CORE CSS-->
+    <link href="assets/css/materialize.min.css" type="text/css" rel="stylesheet">
+    <link href="assets/css/style.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/toastr.min.css">
+    <!--NeXt CSS-->
+    <link rel="stylesheet" href="assets/css/next.css">
+    <link rel="stylesheet" href="custom/css/index.css">
+    <style>
+        select {
+            display: inherit;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Start 网站载入特效 -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End 网站载入特效 -->
+
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+
+<!-- START 顶部导航栏 -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="navbar-color cyan">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img
+                            src="" alt="logo"></a> <span class="logo-text"></span>
+                    </h1></li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="javascript:;"><i class="mdi-action-search"></i></a></li>
+                    <li><a href="javascript:;"><i class="mdi-action-view-module"></i></a></li>
+                    <li><a href="index.html"><i class="mdi-navigation-refresh"></i></a></li>
+                    <li><a href="javascript:;"><i class="mdi-navigation-more-vert"></i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
+<!-- END 顶部导航栏 -->
+
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+
+<!-- START 主界面 -->
+<div id="main" style="padding-left: inherit ">
+    <div class="wrapper">
+        <section id="content" >
+            <div class="container">
+
+                <!--拓扑图-->
+                <div class="row"style="margin: auto">
+                <div class="col s12 m7">
+                    <div class="card">
+                                <div id="topology-graph" ></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content cyan-text" style="overflow-y: auto; height: 140px">
+                            <p><i class="mdi-social-notifications"></i> 用户操作: Site-1 Port1  ->  Site-3 Port3 <span class="right"><i class="mdi-av-timer"></i> 2016-06-07 20:22:45</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--输入表单-->
+                    <div class="row" style="margin: auto">
+                        <div class="col s12 m5">
+                                <h4 class="header2">DNS配置</h4>
+                                <div class="row" style="overflow: scroll;height:300px">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="row">
+                                                    <div class="config-dns input-field col s12">
+                                                        <i class="mdi-action-room prefix"></i>
+                                                        <input id="config-dns-zone" type="text">
+                                                        <label for="config-dns-zone">zone</label>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="input-field col s12" id="dns-select">
+                                                    <select id="dns-name-select"class="DNSname multi-level" data-first-title="请选择DNS Name">
+
+                                                    </select>
+                                                    <select id="dns-ip-select"class="ip multi-level" data-first-title="请选择IP">
+
+                                                    </select>
+                                                    <select id="dns-site-select"class="site multi-level" data-first-title="请选择Site">
+
+                                                    </select>
+                                                </div>-->
+                                                <div id="nest-clone" class="demo-wrap">
+                                                        <div class="toclone">
+                                                            <strong>添加DNS-record</strong>
+                                                            <div class="config-dns input-field col s12">
+                                                                <i class="mdi-action-account-circle prefix"></i>
+                                                                <input id="config-domain-name" type="text">
+                                                                <label for="config-domain-name">domain name</label>
+                                                            </div>
+                                                            <div class="inner-wrap">
+                                                                <strong>添加DNS-IP(使用";"分隔多条记录)</strong>
+                                                                <div class="clone-inner">
+                                                                    <div class="config-dns input-field col s12">
+                                                                        <i class="mdi-action-language prefix"></i>
+                                                                        <input id="config-dns-ip" type="text">
+                                                                        <label for="config-dns-ip">IP</label>
+                                                                    </div>
+                                                                    <div class="config-dns input-field col s12">
+                                                                        <i class="mdi-content-filter-list prefix"></i>
+                                                                        <input id="config-dns-site" type="text">
+                                                                        <label for="config-dns-site">site</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <a href="#" class="clone">新增</a> -->
+                                                            <!-- <a href="#" class="delete">删除</a> -->
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="row">
+
+                                                <div class="input-field col s12">
+                                                    <button id="DNS-setting-btn" class="btn cyan waves-effect waves-light right" type="button" onclick="sendDNSSettings(true)">确认
+                                                        <i class="mdi-content-send right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                        </div>
+
+                        <div class="col s12 m5">
+                            <h4 class="header2">Site管理</h4>
+                            <div class="row" style="overflow: scroll;height:300px">
+                            <div class="input-field col s12" id="site-select">
+                                <select id="site-select-value" class="site multi-level" data-first-title="请选择site">
+                                </select></div>
+                            <div class="col s12 m6">
+                                <p>WAN-Router</p>
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="mdi-action-account-circle prefix"></i>
+                                            <input id="wan-router-name" type="text">
+                                            <label for="wan-router-name">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="mdi-action-language prefix"></i>
+                                            <input id="wan-router-ip" type="text">
+                                            <label for="wan-router-ip">IP</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="mdi-action-swap-horiz prefix"></i>
+                                            <input id="interface-id" type="text">
+                                            <label for="interface-id">interface ID (使用";"分隔)</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                                </div>
+                            <div class="col s12 m6">
+                                <p>DNS-Server</p>
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="mdi-action-account-circle prefix"></i>
+                                                <input id="dns-server-name" type="text">
+                                                <label for="dns-server-name">Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="mdi-action-language prefix"></i>
+                                                <input id="dns-server-ip" type="text">
+                                                <label for="dns-server-ip">IP</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <button id="DNS-server-btn" class="btn cyan waves-effect waves-light right"  type="button"onclick="sendConfigSiteSettings(true)">确认
+                                                        <i class="mdi-content-send right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- END 主界面 -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+
+<!-- START 底部版权栏 -->
+<footer class="page-footer" style="padding-left: inherit">
+    <div class="footer-copyright">
+        <div class="container">
+            <span>版权所有 © 2016 <a class="grey-text text-lighten-4" href="http://www.cisco.com/" target="_blank">Cisco System</a></span>
+            <span class="right">WebEx SD-WAN</span>
+        </div>
+    </div>
+</footer>
+<!-- END 底部版权栏 -->
+
+
+<!-- ================================================
+Scripts
+================================================ -->
+
+<!-- jQuery Library -->
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.cxselect.min.js"></script>
+<script type="text/javascript" src="assets/js/toastr.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-cloneya.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="assets/js/materialize.min.js"></script>
+
+<!--NeXt JS-->
+<script src="assets/js/next.js"></script>
+
+
+<!--Custom JS-->
+<script src="custom/js/Ajax.js"></script>
+<script src="custom/js/Data.js"></script>
+<script src="custom/js/index.js"></script>
+
+<script>
+    $("select").not(".disabled").not(".multi-level").material_select();
+</script>
+
+</body>
+
+</html>

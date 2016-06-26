@@ -77,6 +77,7 @@ public class WebexWanTopoMgr {
     private DataBroker dataBroker;
 
     public static final TopologyId WEBEXWAN_TOPOLOGY_ID = new TopologyId(new Uri("webexwan:1"));
+    private Map<String, Node> nodeMap = new ConcurrentHashMap<String, Node>();
 
     public WebexWanTopoMgr(DataBroker dataBroker) {
         this.dataBroker = dataBroker;
@@ -146,8 +147,8 @@ public class WebexWanTopoMgr {
             WebexTpAugmentationBuilder wtab = new WebexTpAugmentationBuilder();
             wtab.setOutPps(100000L);
             wtab.setOutBps(12800000L);
-            wtab.setInPps(100000L);
-            wtab.setInBps(12800000L);
+            // wtab.setInPps(100000L);
+            // wtab.setInBps(12800000L);
             tpb.addAugmentation(WebexTpAugmentation.class, wtab.build());
             tpList.add(tpb.build());
         }
@@ -160,8 +161,10 @@ public class WebexWanTopoMgr {
             nb.addAugmentation(WebexNodeAugmentation.class, wnab.build());
         } 
          
+        Node nd = nb.build();
+        nodeMap.put(nodeName, nd);
         final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
-        transaction.put(LogicalDatastoreType.OPERATIONAL, path, nb.build(), true);
+        transaction.put(LogicalDatastoreType.OPERATIONAL, path, nd, true);
         CheckedFuture<Void, TransactionCommitFailedException> future = transaction.submit();
         try {
             future.checkedGet();
@@ -253,7 +256,7 @@ public class WebexWanTopoMgr {
         nb.setTerminationPoint(tpList);
 
         final WriteTransaction transaction = dataBroker.newWriteOnlyTransaction();
-        transaction.put(LogicalDatastoreType.OPERATIONAL, path, nb.build(), true);
+        transaction.merge(LogicalDatastoreType.OPERATIONAL, path, nb.build(), true);
         CheckedFuture<Void, TransactionCommitFailedException> future = transaction.submit();
         try {
             future.checkedGet();

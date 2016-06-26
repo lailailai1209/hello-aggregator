@@ -1,0 +1,23 @@
+.topology-tooltip {
+    width: 450px;
+    text-align: center;
+}
+.popover {
+    min-width: 450px;
+    max-width: none;
+}
+.popover-content{
+    font-size: 1rem;
+}
+
+.inner-wrap{
+    margin-left:10px;
+    padding-left:10px;
+    border-left:1px #ccc ;
+}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus {
+    border-color: #C9C9C9;
+}
+
