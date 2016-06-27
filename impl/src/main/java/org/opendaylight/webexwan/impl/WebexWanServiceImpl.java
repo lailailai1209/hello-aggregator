@@ -46,7 +46,7 @@ public class WebexWanServiceImpl implements WebexWanService {
     private WanLinkUsageManager manager;
     private WebexWanTopoMgr topoMgr;
     private String wanLIinkresult;
-    private volatile long pollingInterval = 30000L;
+    private volatile long pollingInterval = 40000L;
     private volatile int minThreshold = 0;
     private Map<String,List<Interface>> wanMap = new ConcurrentHashMap<>();
     private List<DnsServer> dnsServerList = new CopyOnWriteArrayList<DnsServer>();
@@ -85,7 +85,14 @@ public class WebexWanServiceImpl implements WebexWanService {
       
         dnsServerList.addAll(input.getDnsServer());
         wanRouterList.addAll(input.getWanRouter());
-        siteRouterMap.put(input.getSite(), input.getWanRouter());
+        List<WanRouter> wanRtrList = siteRouterMap.get(input.getSite());
+        if (wanRtrList != null) {
+            wanRtrList.addAll(input.getWanRouter());
+        } else {
+            wanRtrList = input.getWanRouter();
+        }
+        // siteRouterMap.put(input.getSite(), input.getWanRouter());
+        siteRouterMap.put(input.getSite(), wanRtrList);
         siteDnsServerMap.put(input.getSite(), input.getDnsServer());
         topoMgr.updateTopology(input);
 
@@ -251,6 +258,8 @@ public class WebexWanServiceImpl implements WebexWanService {
             LOG.info("skip updating DNS servers, all wan interface usage percentage is less than {}", minThreshold);
             return;
         }
+
+        System.out.println("final order: "+siteUsageSortedSet );
 
         for (DnsServer dnsServer : dnsServerList) {
             try {
