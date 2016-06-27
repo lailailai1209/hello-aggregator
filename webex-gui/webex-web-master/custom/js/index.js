@@ -254,6 +254,7 @@ $(document).ready(function () {
             // data: '{"username": "' + username + '", "password" : "' + password + '"}',
             success: function (response) {
                 // topologyData = response;
+                // topologyData = {};
                 processTopologyData(response);
                 updateGraph();
             },
@@ -267,31 +268,47 @@ $(document).ready(function () {
         });
     }
 
-    function processTopologyData(response) {
+    function gen_random(min, max){
+        return Math.floor(Math.random() * (max- min) + min);
+    }
+
+    function processTopologyData(response) {   
+        topologyData = {
+            nodes: [],
+            links: []
+        };
+        var map = new Map();
         for(var i=0;i<response.data['network-topology'].topology[0].node.length;i++)
         {
-            topologyData.nodes[i].id = response.data['network-topology'].topology[0].node[i]['node-id'];
-            topologyData.nodes[i]['webex-topo:site'] = response.data['network-topology'].topology[0].node[i]['webex-topo:site'];
-            topologyData.nodes[i]['data'] = response.data['network-topology'].topology[0].node[i]['termination-point'];
+            var node = {};
+            node.name = response.data['network-topology'].topology[0].node[i]['node-id'];
+            node.id = response.data['network-topology'].topology[0].node[i]['node-id'];
+            node['webex-topo:site'] = response.data['network-topology'].topology[0].node[i]['webex-topo:site'];
+            node['data'] = response.data['network-topology'].topology[0].node[i]['termination-point'];
             if(response.data['network-topology'].topology[0].node[i]['node-id'].match('DNS'))
             {
-                topologyData.nodes[i].device_type='server';
+                node.device_type='server';
             }else if(response.data['network-topology'].topology[0].node[i]['node-id'].match('CRT'))
             {
-                topologyData.nodes[i].device_type='router';
+                node.device_type='router';
             }else if(response.data['network-topology'].topology[0].node[i]['node-id'].match('SP'))
             {
-                topologyData.nodes[i].device_type='site';
+                node.device_type='site';
             }
+            node.x=gen_random(10,500);
+            node.y=gen_random(10,500);
+            topologyData.nodes.push(node);
         }
 
         for(var i=0;i<response.data['network-topology'].topology[0].link.length;i++)
         {
-            topologyData.links[i].name = response.data['network-topology'].topology[0].link[i]['link-id'];
-            topologyData.links[i]['source'] = response.data['network-topology'].topology[0].link[i].source['source-node'];
-            topologyData.links[i]['target'] = response.data['network-topology'].topology[0].link[i].destination['dest-node'];
-            topologyData.links[i]['source-tp'] = response.data['network-topology'].topology[0].link[i].source['source-tp'];
-            topologyData.links[i]['dest-tp'] = response.data['network-topology'].topology[0].link[i].destination['dest-tp'];
+            var link = {};
+            link.name = response.data['network-topology'].topology[0].link[i]['link-id'];
+            link['source'] = response.data['network-topology'].topology[0].link[i].source['source-node'];
+            link['target'] = response.data['network-topology'].topology[0].link[i].destination['dest-node'];
+            link['source-tp'] = response.data['network-topology'].topology[0].link[i].source['source-tp'];
+            link['dest-tp'] = response.data['network-topology'].topology[0].link[i].destination['dest-tp'];
+            topologyData.links.push(link);
         }
     }
 
@@ -368,188 +385,34 @@ function requestHistoryInfo() {
 
 function sendDNSSettings(value) {
     if (value) {
-        var ip_list =  $("#config-dns-ip").val(),
-            site_list = $("#config-dns-site").val();
+        var ip_list = $("#config-dns-ip").val();
+        var site_list = $("#config-dns-site").val();
+      if (ip_list.length > 0 && site_list.length > 0) {
         ip_list=ip_list.split(";");
         site_list=site_list.split(";");
-        var DNSSettingsData = {};
-    if (ip_list.length == 1) {
-        DNSSettingsData = {
+        var DNSSettingsData = {
             "input": {
                 "zone": $("#config-dns-zone").val(),
                 "dns-record": [
                     {
-                        "domain-name": $("#config-domain-name").val(),
-                        "dns-ip": [
-                            {
-                                "ip": ip_list[0],
-                                "site": site_list[0]
-                            }
-                            /*
-                            ,
-                            {
-                                "ip": ip_list[1],
-                                "site": site_list[1]
-                            },
-                            {
-                                "ip": ip_list[2],
-                                "site": site_list[2]
-                            },
-                            {
-                                "ip": ip_list[3],
-                                "site": site_list[3]
-                            }
-                            */
-                        ]
-                    },
+                        "domain-name": $("#config-domain-name").val()
+                    }
                 ]
             }
         };
-    }
 
-
-    if (ip_list.length == 2) {
-        DNSSettingsData = {
-            "input": {
-                "zone": $("#config-dns-zone").val(),
-                "dns-record": [
-                    {
-                        "domain-name": $("#config-domain-name").val(),
-                        "dns-ip": [
-                            {
-                                "ip": ip_list[0],
-                                "site": site_list[0]
-                            }
-                            ,
-                            {
-                                "ip": ip_list[1],
-                                "site": site_list[1]
-                            }
-                            /* ,
-                            {
-                                "ip": ip_list[2],
-                                "site": site_list[2]
-                            },
-                            {
-                                "ip": ip_list[3],
-                                "site": site_list[3]
-                            }
-                            */
-                        ]
-                    },
-                ]
-            }
-        };
-    }
-
-    if (ip_list.length == 3) {
-        DNSSettingsData = {
-            "input": {
-                "zone": $("#config-dns-zone").val(),
-                "dns-record": [
-                    {
-                        "domain-name": $("#config-domain-name").val(),
-                        "dns-ip": [
-                            {
-                                "ip": ip_list[0],
-                                "site": site_list[0]
-                            }
-                            ,
-                            {
-                                "ip": ip_list[1],
-                                "site": site_list[1]
-                            }
-                            ,
-                            {
-                                "ip": ip_list[2],
-                                "site": site_list[2]
-                            }
-                            /* ,
-                            {
-                                "ip": ip_list[3],
-                                "site": site_list[3]
-                            }
-                            */
-                        ]
-                    },
-                ]
-            }
-        };
-    }
-
-    if (ip_list.length == 4) {
-        DNSSettingsData = {
-            "input": {
-                "zone": $("#config-dns-zone").val(),
-                "dns-record": [
-                    {
-                        "domain-name": $("#config-domain-name").val(),
-                        "dns-ip": [
-                            {
-                                "ip": ip_list[0],
-                                "site": site_list[0]
-                            }
-                            ,
-                            {
-                                "ip": ip_list[1],
-                                "site": site_list[1]
-                            }
-                            ,
-                            {
-                                "ip": ip_list[2],
-                                "site": site_list[2]
-                            },
-                            {
-                                "ip": ip_list[3],
-                                "site": site_list[3]
-                            }
-                        ]
-                    },
-                ]
-            }
-        };
-    }
-
-    /*    if (ip_list.length>1) {
-            for(var i=1;i<ip_list.length;i++) {
-                DNSSettingsData.input['dns-record']['dns-ip'][i].ip = ip_list[i];
-                DNSSettingsData.input['dns-record']['dns-ip'][i].site = site_list[i];
-            }
+    var dns_ip_list = [];
+    if (ip_list.length>0) {
+        for(var i=0;i<ip_list.length;i++) {
+            var dns_ip_site = {};
+            dns_ip_site['ip'] = ip_list[i];
+            dns_ip_site['site'] = site_list[i];
+            dns_ip_list.push(dns_ip_site);
         }
-        */
+    }
 
+     DNSSettingsData['dns-ip'] = dns_ip_list;
 
-        /*for(var i=0;i<ip_list.length;i++){
-            DNSSettingsData.input['dns-record']['dns-ip'][i].ip = ip_list[i];
-        }
-        for(var i=0;i<site_list.length;i++){
-            DNSSettingsData.input['dns-record']['dns-ip'][i].site = site_list[i];
-        }*/
-
-        /*if($("#config-dns-ip1").val())
-        {var ip_list =  $("#config-dns-ip1").val(),
-            site_list = $("#config-dns-site1").val();
-            ip_list.split(';');
-            site_list.split(';');
-            for(var i=0;i<ip_list.length;i++){
-                DNSSettingsData.input['dns-record'][1]['dns-ip'][i].ip = ip_list[i];
-            }
-            for(var i=0;i<site_list.length;i++){
-                DNSSettingsData.input['dns-record'][1]['dns-ip'][i].site = site_list[i];
-            }}
-
-        if($("#config-dns-ip2").val())
-        {var ip_list =  $("#config-dns-ip2").val(),
-            site_list = $("#config-dns-site2").val();
-            ip_list.split(';');
-            site_list.split(';');
-            for(var i=0;i<ip_list.length;i++){
-                DNSSettingsData.input['dns-record'][2]['dns-ip'][i].ip = ip_list[i];
-            }
-            for(var i=0;i<site_list.length;i++){
-                DNSSettingsData.input['dns-record'][2]['dns-ip'][i].site = site_list[i];
-            }}
-*/
         var userUrl = DNS_SETTINGS_URL;
         callServerPost(userUrl, '', DNSSettingsData, function (response) {
             toastr["info"]("已发送请求 !");
@@ -557,6 +420,7 @@ function sendDNSSettings(value) {
             console.log("发送失败, 请重试 !");
         });
     }
+  }
 }
 
 function sendConfigSiteSettings(value) {
@@ -568,22 +432,9 @@ function sendConfigSiteSettings(value) {
             dns_server_name = $("#dns-server-name").val(),
             dns_server_ip = $("#dns-server-ip").val();
         interface_list=interface_list.split(";");
-        var siteSettingsData = {};
-        if (interface_list.length == 1) {
-            siteSettingsData = {
+        var siteSettingsData = {
             "input": {
                 "site": "site2",
-                "wan-router": [
-                    {
-                        "wan-router-name": wan_router_name,
-                        "wan-router-ip": wan_router_ip,
-                        "interface": [
-                            {
-                                "interface-id": interface_list[0]
-                            }
-                        ]
-                    }
-                ],
                 "dns-server": [
                     {
                         "dns-server-name": dns_server_name,
@@ -592,101 +443,22 @@ function sendConfigSiteSettings(value) {
                 ]
             }
         };
-    }
 
-        if (interface_list.length == 2) {
-            siteSettingsData = {
-            "input": {
-                "site": "site2",
-                "wan-router": [
-                    {
-                        "wan-router-name": wan_router_name,
-                        "wan-router-ip": wan_router_ip,
-                        "interface": [
-                            {
-                                "interface-id": interface_list[0]
-                            },
-                            {
-                                "interface-id": interface_list[1]
-                            }
-                        ]
-                    }
-                ],
-                "dns-server": [
-                    {
-                        "dns-server-name": dns_server_name,
-                        "dns-server-ip": dns_server_ip
-                    }
-                ]
-            }
-        };
-    }
+        var interfaces = [];
+        for (var i=0; i<interface_list.length; i++) {
+            var interfac_id = {};
+            interfac_id['interface-id'] = interface_list[i];
+            interfaces.push[interfac_id];
+        }
 
-        if (interface_list.length == 3) {
-            siteSettingsData = {
-            "input": {
-                "site": "site2",
-                "wan-router": [
-                    {
-                        "wan-router-name": wan_router_name,
-                        "wan-router-ip": wan_router_ip,
-                        "interface": [
-                            {
-                                "interface-id": interface_list[0]
-                            },
-                            {
-                                "interface-id": interface_list[1]
-                            },
-                            {
-                                "interface-id": interface_list[2]
-                            }
-                        ]
-                    }
-                ],
-                "dns-server": [
-                    {
-                        "dns-server-name": dns_server_name,
-                        "dns-server-ip": dns_server_ip
-                    }
-                ]
-            }
-        };
-    }
-
-            if (interface_list.length == 4) {
-            siteSettingsData = {
-            "input": {
-                "site": "site2",
-                "wan-router": [
-                    {
-                        "wan-router-name": wan_router_name,
-                        "wan-router-ip": wan_router_ip,
-                        "interface": [
-                            {
-                                "interface-id": interface_list[0]
-                            },
-                            {
-                                "interface-id": interface_list[1]
-                            },
-                            {
-                                "interface-id": interface_list[2]
-                            },
-                            {
-                                "interface-id": interface_list[3]
-                            }
-                        ]
-                    }
-                ],
-                "dns-server": [
-                    {
-                        "dns-server-name": dns_server_name,
-                        "dns-server-ip": dns_server_ip
-                    }
-                ]
-            }
-        };
-    }
-
+        var wan_router = [];
+        var wan_router_param = {};
+        wan_router_param['wan-router-name'] = wan_router_name;
+        wan_router_param['wan-router-ip'] = wan_router_ip;
+        wan_router_param['interface'] = interfaces;
+        wan_router.push(wan_router_param);
+        siteSettingsData['input']['wan-router'] = wan_router;
+    
 
         var userUrl = CONFIG_SITE_SETTINGS_URL;
         callServerPost(userUrl, '', siteSettingsData, function (response) {
