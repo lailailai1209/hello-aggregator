@@ -277,7 +277,6 @@ $(document).ready(function () {
             nodes: [],
             links: []
         };
-        var map = new Map();
         for(var i=0;i<response.data['network-topology'].topology[0].node.length;i++)
         {
             var node = {};
