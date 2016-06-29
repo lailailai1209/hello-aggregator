@@ -54,6 +54,8 @@ public class WanLinkUsageManager {
 
         private final String ipaddr;
         private final String wanInterface;
+        String linkUsagebps ="100";
+        String linkUsagepps ="100";
 
 
         public WorkerThread(String ipaddr,String wanInterface) {
@@ -61,32 +63,54 @@ public class WanLinkUsageManager {
             this.ipaddr = ipaddr;
             this.wanInterface = wanInterface;
 
-
         }
 
 
         @Override
         public WanIntfStats call() throws IOException {
             //check the wan link usage
-            //check(ipaddr);
-            /*
+
+
+             try {
             ProcessBuilder pb = new ProcessBuilder("/home/cisco/projects/TestWan/src/./test.exp",ipaddr,wanInterface);
 
             Process p1 = pb.start();
+                 Thread.sleep(1000);
             BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
-            String  output;
-            if ((output = br.readLine())!= null){
-                System.out.println(output);
-                return Integer.parseInt(output);
-            }else{
-                return 10000000;
-            }*/
-            Random r = new Random();
+                 Thread.sleep(3000);
+
+          if(((linkUsagebps = br.readLine())!=null)&&((linkUsagepps = br.readLine())!=null)){
+
+                     System.out.println("bps: " + linkUsagebps);
+                     System.out.println("pps: " + linkUsagepps);
+                 }else{
+                     System.out.println("somthings wrong");
+                     linkUsagebps = "100";
+                     linkUsagepps = "100";
+                 }
+
+
+            br.close();
+            p1.getInputStream().close();
+            p1.destroy();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+/*
+          Random r = new Random();
             int pps = r.nextInt(100);
             int bps = pps * 128;
-            
-            WanIntfStats stats = new WanIntfStats(Integer.valueOf(pps).longValue(), Integer.valueOf(bps).longValue());
-            return stats;
+             WanIntfStats stats = new WanIntfStats(Integer.valueOf(pps).longValue(), Integer.valueOf(bps).longValue());
+              return stats;
+              */
+
+
+
+                WanIntfStats stats = new WanIntfStats(Integer.valueOf(linkUsagepps).longValue(), Integer.valueOf(linkUsagebps).longValue());
+                return stats;
+
+            //return stats;
         }
     }
 }
