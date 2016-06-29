@@ -35,4 +35,20 @@ public class SiteWanIntfStats implements Comparable<SiteWanIntfStats> {
     public String toString() {
         return "site: " + site + " stats: " + stats.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SiteWanIntfStats that = (SiteWanIntfStats) o;
+
+        return !(site != null ? !site.equals(that.site) : that.site != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return site != null ? site.hashCode() : 0;
+    }
 }

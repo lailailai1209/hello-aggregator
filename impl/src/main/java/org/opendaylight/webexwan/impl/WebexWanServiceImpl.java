@@ -221,6 +221,7 @@ public class WebexWanServiceImpl implements WebexWanService {
 
     public void checkWanUsage(Map<String,List<Interface>> wanMap){
         boolean skip = true;
+        SortedSet<SiteWanIntfStats> siteUsage = new TreeSet<SiteWanIntfStats>();
         for (Map.Entry<String, List<WanRouter>> entry : siteRouterMap.entrySet()) {
             Long bps = 0L;
             Long pps = 0L;
@@ -244,7 +245,7 @@ public class WebexWanServiceImpl implements WebexWanService {
             WanIntfStats stats = new WanIntfStats(pps, bps);
             siteWanUsageMap.put(site, stats);
             SiteWanIntfStats siteStats = new SiteWanIntfStats(stats, site);
-            siteUsageSortedSet.add(siteStats);
+            siteUsage.add(siteStats);
         }
 
         if (skip) {
@@ -252,9 +253,11 @@ public class WebexWanServiceImpl implements WebexWanService {
             return;
         }
 
+        LOG.error("site usage: {}", siteUsage);
+
         for (DnsServer dnsServer : dnsServerList) {
             try {
-                for (SiteWanIntfStats stats : siteUsageSortedSet) {
+                for (SiteWanIntfStats stats : siteUsage) {
                     Set<String> zoneSet = siteZoneMap.get(stats.getSite());
                     if (zoneSet == null) {
                         continue;
