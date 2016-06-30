@@ -8,8 +8,9 @@ var serveStatic = require('serve-static');
 // app configuration
 var appConfig = {
 	// Controller settings
-	//'ctrlHost': '10.124.19.145', // Gaofeng
-	'ctrlHost': '127.0.0.1', // Sergey
+	// 'ctrlHost': '10.124.19.145', // Gaofeng
+	// 'ctrlHost': '127.0.0.1', // Sergey
+	'ctrlHost': '10.224.241.254', // Sergey
 	'ctrlPort': '8181', // 8181 by default
 	'ctrlUsername': 'admin',
 	'ctrlPassword': 'admin',
