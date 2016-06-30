@@ -55,7 +55,7 @@ public class WebexWanServiceImpl implements WebexWanService {
     private Map<String,List<Interface>> wanMap = new ConcurrentHashMap<>();
     private List<DnsServer> dnsServerList = new CopyOnWriteArrayList<DnsServer>();
     private List<WanRouter> wanRouterList = new CopyOnWriteArrayList<WanRouter>();
-    private Map<String, List<WanRouter>> siteRouterMap = new ConcurrentHashMap<String, List<WanRouter>>();
+    private Map<String, Set<WanRouter>> siteRouterMap = new ConcurrentHashMap<String, Set<WanRouter>>();
     private Map<String, List<DnsServer>> siteDnsServerMap = new ConcurrentHashMap<String, List<DnsServer>>();
     private Map<String, WanIntfStats>siteWanUsageMap = new ConcurrentHashMap<String, WanIntfStats>(); 
    
@@ -103,12 +103,11 @@ public class WebexWanServiceImpl implements WebexWanService {
             siteDnsServerMap.put(input.getSite(), input.getDnsServer());
         }
         wanRouterList.addAll(input.getWanRouter());
-        List<WanRouter> wanRtrList = siteRouterMap.get(input.getSite());
-        if (wanRtrList != null) {
-            wanRtrList.addAll(input.getWanRouter());
-        } else {
-            wanRtrList = input.getWanRouter();
+        Set<WanRouter> wanRtrList = siteRouterMap.get(input.getSite());
+        if (wanRtrList == null) {
+            wanRtrList = new HashSet<WanRouter>();
         }
+        wanRtrList.addAll(input.getWanRouter());
         // siteRouterMap.put(input.getSite(), input.getWanRouter());
         siteRouterMap.put(input.getSite(), wanRtrList);
       }
@@ -261,11 +260,11 @@ public class WebexWanServiceImpl implements WebexWanService {
         boolean skip = true;
       // synchronized(lock) {
         SortedSet<SiteWanIntfStats> siteUsage = new TreeSet<SiteWanIntfStats>();
-        for (Map.Entry<String, List<WanRouter>> entry : siteRouterMap.entrySet()) {
+        for (Map.Entry<String, Set<WanRouter>> entry : siteRouterMap.entrySet()) {
             Long bps = 0L;
             Long pps = 0L;
             String site = entry.getKey();
-            List<WanRouter> wanRouterList = entry.getValue(); 
+            Set<WanRouter> wanRouterList = entry.getValue(); 
             for (WanRouter router : wanRouterList) { 
                 List<Interface> intfList = router.getInterface();
                 for (Interface intf : intfList) {
