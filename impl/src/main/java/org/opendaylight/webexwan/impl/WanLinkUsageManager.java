@@ -75,14 +75,14 @@ public class WanLinkUsageManager {
             ProcessBuilder pb = new ProcessBuilder("/home/cisco/projects/TestWan/src/./test.exp",ipaddr,wanInterface);
 
             Process p1 = pb.start();
-                 Thread.sleep(1000);
+                 Thread.sleep(500);
             BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
-                 Thread.sleep(3000);
+                 Thread.sleep(500);
 
           if(((linkUsagebps = br.readLine())!=null)&&((linkUsagepps = br.readLine())!=null)){
 
-                     System.out.println("bps: " + linkUsagebps);
-                     System.out.println("pps: " + linkUsagepps);
+                     // System.out.println("bps: " + linkUsagebps);
+                     // System.out.println("pps: " + linkUsagepps);
                  }else{
                      System.out.println("somthings wrong");
                      linkUsagebps = "100";
@@ -91,8 +91,13 @@ public class WanLinkUsageManager {
 
 
             br.close();
+            p1.getOutputStream().close();
             p1.getInputStream().close();
-            p1.destroy();
+            int rc = p1.waitFor();
+            if (rc != 0) {
+                System.out.println("script failed to check wan link usage " + rc);
+                // p1.destroy();
+            }
 
         }catch (Exception e){
             e.printStackTrace();

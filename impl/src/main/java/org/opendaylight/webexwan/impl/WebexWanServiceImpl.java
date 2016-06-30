@@ -37,17 +37,21 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
 
 public class WebexWanServiceImpl implements WebexWanService {
     private static final Logger LOG = LoggerFactory.getLogger(WebexWanServiceImpl.class);
+    private final Object lock = new Object();
     private WanLinkUsageManager manager;
     private WebexWanTopoMgr topoMgr;
     private String wanLIinkresult;
-    private volatile long pollingInterval = 40000L;
+    private volatile long pollingInterval = 20000L;
     private volatile int minThreshold = 0;
+    private Set<String> zones = new CopyOnWriteArraySet<String>();
     private Map<String,List<Interface>> wanMap = new ConcurrentHashMap<>();
     private List<DnsServer> dnsServerList = new CopyOnWriteArrayList<DnsServer>();
     private List<WanRouter> wanRouterList = new CopyOnWriteArrayList<WanRouter>();
@@ -63,8 +67,11 @@ public class WebexWanServiceImpl implements WebexWanService {
     private Map<String, DnsNameIpContainer> siteZoneContainer = new ConcurrentHashMap<String, DnsNameIpContainer>();
     // key is site, value is zone list
     private Map<String, Set<String>> siteZoneMap = new ConcurrentHashMap<String, Set<String>>();
+    // key is zone, value is site list
+    private Map<String, Set<String>> zoneSiteMap = new ConcurrentHashMap<String, Set<String>>();
     private PollingTask task;
     private Thread newTaskThread;
+    private AtomicBoolean dnsUpdating = new AtomicBoolean();
 
     public WebexWanServiceImpl(WanLinkUsageManager manager, WebexWanTopoMgr topoMgr) {
         this.manager = manager;
@@ -75,15 +82,26 @@ public class WebexWanServiceImpl implements WebexWanService {
         newTaskThread.start();
     }
 
+    public void close() throws IllegalArgumentException, InterruptedException {
+        int i = 0;
+        while (dnsUpdating.get() && i++ < 5) {
+            Thread.sleep(2000); 
+        }
+    }
+
     @Override
     public Future<RpcResult<ConfigSiteSettingOutput>> configSiteSetting(ConfigSiteSettingInput input) {
+      synchronized(lock) {
         for (int i=0;i<input.getWanRouter().size();i++) {
             wanMap.put(input.getWanRouter().get(i).getWanRouterIp(),input.getWanRouter().get(i).getInterface());
         }
         task.setWanMap(wanMap);
         System.out.println(wanMap);
       
-        dnsServerList.addAll(input.getDnsServer());
+        if (input.getDnsServer() != null) {
+            dnsServerList.addAll(input.getDnsServer());
+            siteDnsServerMap.put(input.getSite(), input.getDnsServer());
+        }
         wanRouterList.addAll(input.getWanRouter());
         List<WanRouter> wanRtrList = siteRouterMap.get(input.getSite());
         if (wanRtrList != null) {
@@ -93,7 +111,7 @@ public class WebexWanServiceImpl implements WebexWanService {
         }
         // siteRouterMap.put(input.getSite(), input.getWanRouter());
         siteRouterMap.put(input.getSite(), wanRtrList);
-        siteDnsServerMap.put(input.getSite(), input.getDnsServer());
+      }
         topoMgr.updateTopology(input);
 
         ConfigSiteSettingOutput output = new ConfigSiteSettingOutputBuilder()
@@ -112,6 +130,13 @@ public class WebexWanServiceImpl implements WebexWanService {
                 .build());
         }
 
+      synchronized(lock) {
+        zones.add(input.getZone());
+        Set<String> siteSet = zoneSiteMap.get(input.getZone());
+        if (siteSet == null) {
+            siteSet = new HashSet<String>();
+        }
+
         for (DnsRecord rec : input.getDnsRecord()) {
             for (DnsIp ip : rec.getDnsIp()) {
                 String key = ip.getSite().concat(input.getZone());
@@ -128,8 +153,11 @@ public class WebexWanServiceImpl implements WebexWanService {
                 }
                 zoneSet.add(input.getZone());
                 siteZoneMap.put(ip.getSite(), zoneSet);
+                siteSet.add(ip.getSite());
             }
         }
+        
+        zoneSiteMap.put(input.getZone(), siteSet);
 
         for (DnsServer dnsServer : dnsServerList) {
             try {
@@ -159,6 +187,7 @@ public class WebexWanServiceImpl implements WebexWanService {
                 e.printStackTrace();
             }
         }
+      }
 
         ConfigDnsSettingOutput output = new ConfigDnsSettingOutputBuilder()
                 .setResult("success")
@@ -205,12 +234,12 @@ public class WebexWanServiceImpl implements WebexWanService {
         @Override
         public void run() {
             while(true) {
-                if (!wanMap.isEmpty()) {
-                    checkWanUsage(wanMap);
-                }
                 try {
+                    if (!wanMap.isEmpty()) {
+                        checkWanUsage(wanMap);
+                    }
                     Thread.sleep(pollingInterval);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -227,7 +256,10 @@ public class WebexWanServiceImpl implements WebexWanService {
 
 
     public void checkWanUsage(Map<String,List<Interface>> wanMap){
+        java.util.Date date = new java.util.Date();
+        System.out.println(date);
         boolean skip = true;
+      // synchronized(lock) {
         SortedSet<SiteWanIntfStats> siteUsage = new TreeSet<SiteWanIntfStats>();
         for (Map.Entry<String, List<WanRouter>> entry : siteRouterMap.entrySet()) {
             Long bps = 0L;
@@ -256,64 +288,133 @@ public class WebexWanServiceImpl implements WebexWanService {
         }
 
         if (skip) {
+            System.out.println("skip updating DNS servers, all wan interface usage percentage is less than " + minThreshold);
             LOG.info("skip updating DNS servers, all wan interface usage percentage is less than {}", minThreshold);
             return;
         }
 
+        for (SiteWanIntfStats stats : siteUsage) {
+            System.out.println("site usage: " + stats.toString());
+        }
         LOG.error("site usage: {}", siteUsage);
 
+        dnsUpdating.set(true);
+
+      synchronized(lock) {
         for (DnsServer dnsServer : dnsServerList) {
             try {
+                Map<String, Set<String>> zoneDnsNameMap = new HashMap<String, Set<String>>();
                 for (SiteWanIntfStats stats : siteUsage) {
                     Set<String> zoneSet = siteZoneMap.get(stats.getSite());
                     if (zoneSet == null) {
                         continue;
                     }
                     for (String zone : zoneSet) {
-                        File file = new File("/tmp/ns1.txt");
-                        PrintWriter output = new PrintWriter(file);
-                        output.println("server " + dnsServer.getDnsServerIp());
-                        // output.println("debug yes");
-                        output.println("zone " + zone);
                         String key = stats.getSite().concat(zone);
                         DnsNameIpContainer dnsRecordContainer = siteZoneContainer.get(key);
                         if (dnsRecordContainer == null) {
-                            output.close();
                             continue;
                         }
+                        Set<String> dnsDomainNames = new HashSet<String>();
                         for (DnsRecord dns : dnsRecordContainer.getDnsRecord()) {
+                            dnsDomainNames.add(dns.getDomainName());
+                        }
+                        Set<String> dnsNames = zoneDnsNameMap.get(zone);
+                        if (dnsNames == null) {
+                            dnsNames = new HashSet<String>();
+                        }
+                        dnsNames.addAll(dnsDomainNames);
+                        zoneDnsNameMap.put(zone, dnsNames);
+                    }
+                }
+/*
+                for (Map.Entry<String, Set<String>> entry : zoneDnsNameMap.entrySet()) {
+                    File file = new File("/tmp/ns-del.txt");
+                    PrintWriter output = new PrintWriter(file);
+                    output.println("server " + dnsServer.getDnsServerIp());
+                    output.println("zone " + entry.getKey());
+                    for (String name : entry.getValue()) {
                             StringBuilder sb = new StringBuilder();
                             sb.append("update delete ");
-                            sb.append(dns.getDomainName());
-                            sb.append(" 86400 A ");
-                            sb.append(dns.getDnsIp().get(0).getIp());
+                            sb.append(name);
+                            sb.append(" A");
                             output.println(sb.toString());
-
+                    }
+                    output.println("send");
+                    output.close();
+                    Runtime r = Runtime.getRuntime();
+                    r.exec("nsupdate -v ns-del.txt", null, new File("/tmp"));
+                }
+*/
+                Map<String, List<String>> zoneDnsParams = new HashMap<String, List<String>>();
+                for (SiteWanIntfStats stats : siteUsage) {
+                    Set<String> zoneSet = siteZoneMap.get(stats.getSite());
+                    if (zoneSet == null) {
+                        continue;
+                    }
+                    for (String zone : zoneSet) {
+                        String key = stats.getSite().concat(zone);
+                        DnsNameIpContainer dnsRecordContainer = siteZoneContainer.get(key);
+                        if (dnsRecordContainer == null) {
+                            continue;
+                        }
+                        List<String> params = zoneDnsParams.get(zone);
+                        if (params == null) {
+                            params = new ArrayList<String>();
+                        }
+                        for (DnsRecord dns : dnsRecordContainer.getDnsRecord()) {
                             StringBuilder sb2 = new StringBuilder();
                             sb2.append("update add ");
                             sb2.append(dns.getDomainName());
                             sb2.append(" 86400 A ");
                             sb2.append(dns.getDnsIp().get(0).getIp());
-                            output.println(sb2.toString());
+                            params.add(sb2.toString());
                         }
-                        // output.println("show");
-                        output.println("send");
-                        output.close();
-                        Runtime r = Runtime.getRuntime();
-                        r.exec("nsupdate -v ns1.txt", null, new File("/tmp"));
-                        
-                        LOG.error("dumping ns1.txt for {}", stats); 
-                        BufferedReader br = new BufferedReader(new FileReader("/tmp/ns1.txt"));
-                        String line = null;
-                        while ((line = br.readLine()) != null) {
-                            LOG.error(line);
-                        }
+                        zoneDnsParams.put(zone, params);
                     }
                 }
+                for (Map.Entry<String, List<String>> entry : zoneDnsParams.entrySet()) {
+                    StringBuilder sb3 = new StringBuilder();
+                    sb3.append("/tmp/ns");
+                    sb3.append(dnsServer.getDnsServerIp());
+                    // File file = new File("/tmp/ns2.txt");
+                    File file = new File(sb3.toString());
+                    PrintWriter output = new PrintWriter(file);
+                    output.println("server " + dnsServer.getDnsServerIp());
+                    // output.println("debug yes");
+                    output.println("zone " + entry.getKey());
+                    for (String name : zoneDnsNameMap.get(entry.getKey())) {
+                        StringBuilder sb4 = new StringBuilder();
+                        sb4.append("update delete ");
+                        sb4.append(name); 
+                        sb4.append(" A");
+                        output.println(sb4.toString());
+                    }
+                    for (String cmd : entry.getValue()) {
+                        output.println(cmd);
+                    }
+                    // output.println("show");
+                    output.println("send");
+                    output.close();
+                    Runtime r = Runtime.getRuntime();
+                    System.out.println("updating DNS server " + dnsServer.getDnsServerIp());
+                    String nsCmd = "nsupdate -v ns" + dnsServer.getDnsServerIp();
+                    Process p = r.exec(nsCmd, null, new File("/tmp"));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        // System.out.println(line);    
+                    }
+                    int rc = p.waitFor();
+                    System.out.println("nsupdate result " + rc);
+                }
+                // Thread.sleep(1000);
             } catch (Exception e) {
                     e.printStackTrace();
             }
         }
+      }
+      dnsUpdating.set(false);
     }
 
     public Future<RpcResult<ConfigGlobalSettingOutput>> configGlobalSetting(ConfigGlobalSettingInput input) {

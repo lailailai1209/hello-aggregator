@@ -21,6 +21,7 @@ public class WebexWanProvider implements BindingAwareProvider, AutoCloseable {
     private BindingAwareBroker.RpcRegistration<WebexWanService> webexWanService;
     private WanLinkUsageManager manager;
     private WebexWanTopoMgr webexWanTopoMgr;
+    private WebexWanServiceImpl webexServiceMgr;
     private DataBroker dataBroker;
 
 
@@ -28,14 +29,16 @@ public class WebexWanProvider implements BindingAwareProvider, AutoCloseable {
     public void onSessionInitiated(ProviderContext session) {
         LOG.info("WebexWanProvider Session Initiated");
         dataBroker = session.getSALService(DataBroker.class);
-        webexWanTopoMgr = new WebexWanTopoMgr(dataBroker);
         this.manager = WanLinkUsageManager.getInstance();
-        webexWanService = session.addRpcImplementation(WebexWanService.class,new WebexWanServiceImpl(manager, webexWanTopoMgr));
+        webexWanTopoMgr = new WebexWanTopoMgr(dataBroker);
+        webexServiceMgr = new WebexWanServiceImpl(manager, webexWanTopoMgr);  
+        webexWanService = session.addRpcImplementation(WebexWanService.class, webexServiceMgr);
     }
 
     @Override
     public void close() throws Exception {
         LOG.info("WebexWanProvider Closed");
+        webexServiceMgr.close();
         webexWanService.close();
     }
 }
