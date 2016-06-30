@@ -386,17 +386,20 @@ function sendDNSSettings(value) {
     if (value) {
         var ip_list = $("#config-dns-ip").val();
         var site_list = $("#config-dns-site").val();
+        var domain_name = $("#config-domain-name").val();
       if (ip_list.length > 0 && site_list.length > 0) {
         ip_list=ip_list.split(";");
         site_list=site_list.split(";");
         var DNSSettingsData = {
             "input": {
-                "zone": $("#config-dns-zone").val(),
+                "zone": $("#config-dns-zone").val()
+            /*
                 "dns-record": [
                     {
                         "domain-name": $("#config-domain-name").val()
                     }
                 ]
+            */
             }
         };
 
@@ -410,7 +413,14 @@ function sendDNSSettings(value) {
         }
     }
 
-     DNSSettingsData['dns-ip'] = dns_ip_list;
+    var dns_records = [];
+    var dns_record = {};
+    dns_record['domain-name'] = domain_name;
+    dns_record['dns-ip'] = dns_ip_list;
+    dns_records.push(dns_record);
+
+
+     DNSSettingsData['input']['dns-record'] = dns_records;
 
         var userUrl = DNS_SETTINGS_URL;
         callServerPost(userUrl, '', DNSSettingsData, function (response) {
@@ -433,13 +443,15 @@ function sendConfigSiteSettings(value) {
         interface_list=interface_list.split(";");
         var siteSettingsData = {
             "input": {
-                "site": "site2",
+                "site": site
+              /*
                 "dns-server": [
                     {
                         "dns-server-name": dns_server_name,
                         "dns-server-ip": dns_server_ip
                     }
                 ]
+              */
             }
         };
 
@@ -447,8 +459,9 @@ function sendConfigSiteSettings(value) {
         for (var i=0; i<interface_list.length; i++) {
             var interfac_id = {};
             interfac_id['interface-id'] = interface_list[i];
-            interfaces.push[interfac_id];
+            interfaces.push(interfac_id);
         }
+
 
         var wan_router = [];
         var wan_router_param = {};
@@ -458,6 +471,14 @@ function sendConfigSiteSettings(value) {
         wan_router.push(wan_router_param);
         siteSettingsData['input']['wan-router'] = wan_router;
     
+        var dns_servers = [];
+        var dns_server = {};
+        if (dns_server_name && dns_server_ip) {
+            dns_server['dns-server-name'] = dns_server_name;
+            dns_server['dns-server-ip'] = dns_server_ip; 
+            dns_servers.push(dns_server);
+            siteSettingsData['input']['dns-server'] = dns_servers;
+        }
 
         var userUrl = CONFIG_SITE_SETTINGS_URL;
         callServerPost(userUrl, '', siteSettingsData, function (response) {
