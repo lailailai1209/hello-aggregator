@@ -52,11 +52,11 @@ public class WebexWanServiceImpl implements WebexWanService {
     private volatile long pollingInterval = 20000L;
     private volatile int minThreshold = 0;
     private Set<String> zones = new CopyOnWriteArraySet<String>();
-    private Map<String,List<Interface>> wanMap = new ConcurrentHashMap<>();
-    private List<DnsServer> dnsServerList = new CopyOnWriteArrayList<DnsServer>();
-    private List<WanRouter> wanRouterList = new CopyOnWriteArrayList<WanRouter>();
+    private Map<String, List<Interface>> wanMap = new ConcurrentHashMap<>();
+    private Set<DnsServer> dnsServerList = new CopyOnWriteArraySet<DnsServer>();
+    private Set<WanRouter> wanRouterList = new CopyOnWriteArraySet<WanRouter>();
     private Map<String, Set<WanRouter>> siteRouterMap = new ConcurrentHashMap<String, Set<WanRouter>>();
-    private Map<String, List<DnsServer>> siteDnsServerMap = new ConcurrentHashMap<String, List<DnsServer>>();
+    private Map<String, Set<DnsServer>> siteDnsServerMap = new ConcurrentHashMap<String, Set<DnsServer>>();
     private Map<String, WanIntfStats>siteWanUsageMap = new ConcurrentHashMap<String, WanIntfStats>(); 
    
     private SortedSet<SiteWanIntfStats> siteUsageSortedSet = new TreeSet<SiteWanIntfStats>();
@@ -100,8 +100,14 @@ public class WebexWanServiceImpl implements WebexWanService {
       
         if (input.getDnsServer() != null) {
             dnsServerList.addAll(input.getDnsServer());
-            siteDnsServerMap.put(input.getSite(), input.getDnsServer());
+            Set<DnsServer> dnsServerSet = siteDnsServerMap.get(input.getSite());
+            if (dnsServerSet == null) {
+                dnsServerSet = new HashSet<DnsServer>();
+            }
+            dnsServerSet.addAll(input.getDnsServer());
+            siteDnsServerMap.put(input.getSite(), dnsServerSet);
         }
+
         wanRouterList.addAll(input.getWanRouter());
         Set<WanRouter> wanRtrList = siteRouterMap.get(input.getSite());
         if (wanRtrList == null) {
